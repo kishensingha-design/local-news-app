@@ -1,11 +1,11 @@
-{{
-  "name": "My Awesome App",
-  "short_name": "App Name",
+{
+  "name": "Watch Together",
+  "short_name": "WatchTogether",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",
   "theme_color": "#2196F3",
-  "description": "Describe what your app does here.",
+  "description": "Watch videos together with friends",
   "icons": [
     {
       "src": "icon.png",
@@ -13,5 +13,4 @@
       "type": "image/png"
     }
   ]
-}
 }
