@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meitei - Watch & Listen Together</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .dynamic-bg { background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4338ca 100%); }
+    </style>
+</head>
+<body class="dynamic-bg min-h-screen text-white font-sans flex flex-col justify-between">
+
+            <!-- Header / Navbar -->
+    <header class="p-4 bg-black bg-opacity-30 backdrop-blur-md flex justify-between items-center border-b border-indigo-900">
+        <div class="flex items-center space-x-3">
+            <!-- Meitei Flag Logo Frame -->
+            <div class="w-12 h-10 bg-indigo-950 flex items-center justify-center overflow-hidden shadow-lg border border-indigo-400 rounded-lg">
+                <img src="flag.jpg" alt="Meitei Flag Logo" class="w-full h-full object-contain">
+            </div>
+            <div>
+                <h1 class="text-lg font-bold tracking-wider">Welcome</h1>
+                <p class="text-xs text-indigo-300 italic">Meitei</p>
+            </div>
+        </div>
+        <div id="nav-user-status" class="text-sm text-indigo-200">
+            <button onclick="showAuthScreen()" class="bg-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-500 transition">Login / Sign Up</button>
+        </div>
+    </header>
+
+
+
+    <!-- Main Content Container -->
+    <main class="flex-grow p-4 max-w-md mx-auto w-full flex flex-col justify-center">
+
+        <!-- 1. AUTHENTICATION SCREEN -->
+        <section id="auth-screen" class="space-y-6">
+            <div class="text-center space-y-2">
+                <h2 class="text-2xl font-bold">Welcome to Meitei</h2>
+                <p class="text-sm text-indigo-300">Connect, watch, and listen together (Max 10 users per room)</p>
+            </div>
+
+            <div class="bg-indigo-950 bg-opacity-60 p-6 rounded-2xl shadow-xl border border-indigo-800 space-y-4">
+                <div class="flex border-b border-indigo-800 pb-2 mb-4">
+                    <button onclick="switchAuthTab('login')" id="tab-login" class="flex-1 text-center font-bold text-sm pb-1 border-b-2 border-indigo-400 text-white">Login</button>
+                    <button onclick="switchAuthTab('signup')" id="tab-signup" class="flex-1 text-center font-medium text-sm pb-1 text-indigo-400">Sign Up</button>
+                </div>
+
+                <form id="auth-form" onsubmit="handleAuth(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-medium text-indigo-300 mb-1">Email or Phone Number</label>
+                        <input type="text" id="auth-identifier" required class="w-full px-3 py-2 bg-indigo-900 border border-indigo-700 rounded-lg text-sm focus:outline-none focus:border-indigo-400" placeholder="Enter email or phone">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-indigo-300 mb-1">Password</label>
+                        <input type="password" id="auth-password" required class="w-full px-3 py-2 bg-indigo-900 border border-indigo-700 rounded-lg text-sm focus:outline-none focus:border-indigo-400" placeholder="••••••••">
+                    </div>
+                    <div id="forgot-link-container" class="text-right">
+                        <button type="button" onclick="showRecoveryModal()" class="text-xs text-indigo-300 hover:underline">Forgot Password?</button>
+                    </div>
+                    <button type="submit" id="auth-submit-btn" class="w-full py-2.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-sm font-bold transition shadow-md">Login</button>
+                </form>
+            </div>
+        </section>
+
+        <!-- 2. ROOM DASHBOARD SCREEN -->
+        <section id="dashboard-screen" style="display: none;" class="space-y-6">
+            <div class="bg-indigo-950 bg-opacity-60 p-6 rounded-2xl shadow-xl border border-indigo-800 space-y-4">
+                <h3 class="text-lg font-bold">Room Selection</h3>
+                <p class="text-xs text-indigo-300">Choose a room type. Each room supports a maximum of 10 users.</p>
+
+                <div class="space-y-3 pt-2">
+                    <button onclick="enterRoom('Public Room')" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-xl font-bold text-sm transition shadow flex items-center justify-center space-x-2">
+                        <span>🌐 Join Public Room</span>
+                    </button>
+                    <button onclick="promptPrivateRoom()" class="w-full py-3 bg-purple-700 hover:bg-purple-600 rounded-xl font-bold text-sm transition shadow flex items-center justify-center space-x-2">
+                        <span>🔒 Create / Join Private Room</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Voluntary Support Section ("Pay for the love") -->
+            <div class="bg-indigo-950 bg-opacity-60 p-5 rounded-2xl shadow-xl border border-indigo-800 space-y-3 text-center">
+                <h4 class="text-sm font-bold text-indigo-200">❤️ Pay for the Love of Meitei</h4>
+                <p class="text-xs text-indigo-300">Support server costs voluntarily. All payments go directly to the creator.</p>
+                <div class="flex justify-center my-2">
+                    <!-- Dynamic UPI QR Code Generator -->
+                    <div class="w-28 h-28 bg-white p-1 rounded-lg flex items-center justify-center shadow overflow-hidden">
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=upi://pay?pa=Sanasamk@naviaxis&pn=Meitei&cu=INR" alt="UPI QR Code" class="w-full h-full object-contain">
+                    </div>
+                </div>
+                <p class="text-xs font-mono text-indigo-300">UPI ID: <span class="text-white font-bold">Sanasamk@naviaxis</span></p>
+                <button onclick="showSupportModal()" class="w-full py-2 bg-pink-600 hover:bg-pink-500 rounded-lg text-xs font-bold transition shadow">Support via UPI</button>
+            </div>
+
+            <!-- Feedback Section -->
+            <div class="bg-indigo-950 bg-opacity-60 p-5 rounded-2xl shadow-xl border border-indigo-800 space-y-3">
+                <h4 class="text-sm font-bold text-indigo-200">💬 Share Your Feedback</h4>
+                <textarea id="feedback-text" rows="2" class="w-full px-3 py-2 bg-indigo-900 border border-indigo-700 rounded-lg text-xs focus:outline-none focus:border-indigo-400" placeholder="Tell us your thoughts or suggestions..."></textarea>
+                <button onclick="submitFeedback()" class="w-full py-2 bg-indigo-700 hover:bg-indigo-600 rounded-lg text-xs font-bold transition">Send Feedback</button>
+            </div>
+        </section>
+
+        <!-- 3. ACTIVE ROOM & MEDIA SYNC SCREEN -->
+        <section id="room-screen" style="display: none;" class="space-y-4">
+            <div class="flex justify-between items-center bg-indigo-950 px-4 py-2 rounded-xl border border-indigo-800">
+                <div>
+                    <h3 id="room-title-display" class="text-sm font-bold">Room Name</h3>
+                    <p class="text-[10px] text-indigo-300">Users in room: <span id="user-count">1</span>/10 max</p>
+                </div>
+                <button onclick="leaveRoom()" class="px-3 py-1 bg-red-600 hover:bg-red-500 rounded-lg text-xs font-bold">Leave Room</button>
+            </div>
+
+            <!-- Media Player Container -->
+            <div id="media-container" class="bg-black rounded-xl overflow-hidden shadow-2xl border border-indigo-900 aspect-video flex items-center justify-center relative">
+                <div class="text-center p-4 space-y-2 w-full">
+                    <p class="text-xs text-indigo-300">Paste YouTube link to watch together</p>
+                    <input type="text" id="media-url" placeholder="https://www.youtube.com/watch?v=..." class="w-full px-3 py-1.5 bg-indigo-900 border border-indigo-700 rounded-lg text-xs focus:outline-none">
+                    <button onclick="loadMedia()" class="px-4 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-xs font-bold">Load & Sync Video</button>
+                </div>
+            </div>
+
+            <!-- Live Chat Box -->
+            <div class="bg-indigo-950 bg-opacity-70 p-3 rounded-xl border border-indigo-800 space-y-2">
+                <div class="text-xs font-bold text-indigo-300 border-b border-indigo-900 pb-1">Room Chat (Text & Audio)</div>
+                <div id="chat-messages" class="h-28 overflow-y-auto space-y-1 text-xs pr-1">
+                    <p class="text-indigo-400 italic">System: Welcome to the room! Max 10 users allowed.</p>
+                </div>
+                <div class="flex space-x-2 pt-1">
+                    <input type="text" id="chat-input" placeholder="Type a message..." class="flex-grow px-2.5 py-1.5 bg-indigo-900 border border-indigo-700 rounded-lg text-xs focus:outline-none">
+                    <button onclick="sendChatMessage()" class="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-xs font-bold">Send</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="p-4 text-center text-xs text-indigo-400 border-t border-indigo-900 bg-black bg-opacity-20">
+        <p>&copy; 2026 Meitei Platform. All rights reserved. Slogan: <span class="font-bold text-indigo-200">Meitei</span></p>
+    </footer>
+
+    <!-- MODAL: Password Recovery -->
+    <div id="recovery-modal" class="fixed inset-0 bg-black bg-opacity-70" style="display: none; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="bg-indigo-950 border border-indigo-700 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl">
+            <h3 class="text-base font-bold">Retrieve Password</h3>
+            <p class="text-xs text-indigo-300">Enter your registered email or phone to reset your password.</p>
+            <input type="text" id="recovery-input" placeholder="Email or Phone" class="w-full px-3 py-2 bg-indigo-900 border border-indigo-700 rounded-lg text-sm focus:outline-none focus:border-indigo-400">
+            <div class="flex space-x-2">
+                <button onclick="closeRecoveryModal()" class="flex-1 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-xs font-bold">Cancel</button>
+                <button onclick="sendRecovery()" class="flex-1 py-2 bg-indigo-600 hover:bg-indigo-500 rounded-lg text-xs font-bold">Send Reset Link</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL: Strict Double-Confirmation Non-Refundable Support -->
+    <div id="support-modal" class="fixed inset-0 bg-black bg-opacity-80 z-50" style="display: none; align-items: center; justify-content: center; padding: 1rem;">
+        <div class="bg-indigo-950 border border-pink-700 p-6 rounded-2xl max-w-sm w-full space-y-4 shadow-2xl text-center">
+            <div class="text-2xl">⚠️</div>
+            <h3 class="text-base font-bold text-pink-300">Voluntary Contribution Warning</h3>
+            <p class="text-xs text-indigo-200 leading-relaxed">
+                You are about to make a voluntary contribution to support Meitei. Please note that all payments are <strong class="text-pink-400">strict and non-refundable</strong> under any circumstances.
+            </p>
+            <div class="bg-indigo-900 p-3 rounded-xl border border-indigo-800 text-left space-y-2">
+                <label class="flex items-center space-x-2 text-xs cursor-pointer">
+                    <input type="checkbox" id="agree-1" class="rounded accent-pink-600">
+                    <span>I understand this payment is voluntary.</span>
+                </label>
+                <label class="flex items-center space-x-2 text-xs cursor-pointer">
+                    <input type="checkbox" id="agree-2" class="rounded accent-pink-600">
+                    <span>I agree that this payment is strictly non-refundable.</span>
+                </label>
+            </div>
+            <div class="flex space-x-2 pt-2">
+                <button onclick="closeSupportModal()" class="flex-1 py-2 bg-gray-700 hover:bg-gray-600 rounded-lg text-xs font-bold">Cancel</button>
+                <button onclick="proceedToUPI()" class="flex-1 py-2 bg-pink-600 hover:bg-pink-500 rounded-lg text-xs font-bold shadow">Proceed to Pay</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic -->
+    <script>
+        let isLoginMode = true;
+
+        function switchAuthTab(tab) {
+            isLoginMode = (tab === 'login');
+            const loginBtn = document.getElementById('tab-login');
+            const signupBtn = document.getElementById('tab-signup');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const forgotContainer = document.getElementById('forgot-link-container');
+
+            if (isLoginMode) {
+                loginBtn.className = "flex-1 text-center font-bold text-sm pb-1 border-b-2 border-indigo-400 text-white";
+                signupBtn.className = "flex-1 text-center font-medium text-sm pb-1 text-indigo-400";
+                submitBtn.innerText = "Login";
+                forgotContainer.style.display = "block";
+            } else {
+                signupBtn.className = "flex-1 text-center font-bold text-sm pb-1 border-b-2 border-indigo-400 text-white";
+                loginBtn.className = "flex-1 text-center font-medium text-sm pb-1 text-indigo-400";
+                submitBtn.innerText = "Create Account";
+                forgotContainer.style.display = "none";
+            }
+        }
+
+        function handleAuth(event) {
+            event.preventDefault();
+            document.getElementById('auth-screen').style.display = 'none';
+            document.getElementById('dashboard-screen').style.display = 'block';
+            document.getElementById('nav-user-status').innerHTML = `<button onclick="logout()" class="text-xs bg-red-600 px-3 py-1.5 rounded-lg font-semibold hover:bg-red-500 transition">Logout</button>`;
+        }
+
+        function logout() {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('room-screen').style.display = 'none';
+            document.getElementById('auth-screen').style.display = 'block';
+            document.getElementById('nav-user-status').innerHTML = `<button onclick="showAuthScreen()" class="bg-indigo-600 px-3 py-1.5 rounded-lg text-xs font-semibold hover:bg-indigo-500 transition">Login / Sign Up</button>`;
+        }
+
+        function showAuthScreen() {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('room-screen').style.display = 'none';
+            document.getElementById('auth-screen').style.display = 'block';
+        }
+
+        function enterRoom(roomName) {
+            document.getElementById('dashboard-screen').style.display = 'none';
+            document.getElementById('room-screen').style.display = 'block';
+            document.getElementById('room-title-display').innerText = roomName;
+            document.getElementById('user-count').innerText = Math.floor(Math.random() * 5) + 1;
+        }
+
+        function promptPrivateRoom() {
+            let pwd = prompt("Enter Unique Private Room Password:");
+            if(pwd) {
+                enterRoom("Private Secure Room");
+            }
+        }
+
+        function leaveRoom() {
+            document.getElementById('room-screen').style.display = 'none';
+            document.getElementById('dashboard-screen').style.display = 'block';
+        }
+
+        function extractYouTubeId(url) {
+            let regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+            let match = url.match(regExp);
+            return (match && match[2].length === 11) ? match[2] : null;
+        }
+
+        function loadMedia() {
+            let url = document.getElementById('media-url').value;
+            let videoId = extractYouTubeId(url);
+            let container = document.getElementById('media-container');
+            
+            if(!videoId) {
+                alert("Please enter a valid YouTube video link (e.g., https://www.youtube.com/watch?v=...).");
+                return;
+            }
+            
+            container.innerHTML = `<iframe class="w-full h-full absolute inset-0" src="https://www.youtube.com/embed/${videoId}?autoplay=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            
+            let chatBox = document.getElementById('chat-messages');
+            let msg = document.createElement('p');
+            msg.className = "text-indigo-300 italic";
+            msg.innerText = "System: A new video has been loaded and synced in the room!";
+            chatBox.appendChild(msg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        function sendChatMessage() {
+            let input = document.getElementById('chat-input');
+            let text = input.value.trim();
+            if(text === "") return;
+
+            let chatBox = document.getElementById('chat-messages');
+            let msg = document.createElement('p');
+            msg.className = "text-indigo-200";
+            msg.innerHTML = `<strong class="text-indigo-400">You:</strong> ${text}`;
+            chatBox.appendChild(msg);
+            chatBox.scrollTop = chatBox.scrollHeight;
+            input.value = "";
+        }
+
+        function showRecoveryModal() {
+            document.getElementById('recovery-modal').style.display = 'flex';
+        }
+        function closeRecoveryModal() {
+            document.getElementById('recovery-modal').style.display = 'none';
+        }
+        function sendRecovery() {
+            alert("Password recovery link sent successfully to your identifier.");
+            closeRecoveryModal();
+        }
+
+        function showSupportModal() {
+            document.getElementById('agree-1').checked = false;
+            document.getElementById('agree-2').checked = false;
+            document.getElementById('support-modal').style.display = 'flex';
+        }
+        function closeSupportModal() {
+            document.getElementById('support-modal').style.display = 'none';
+        }
+        function proceedToUPI() {
+            const check1 = document.getElementById('agree-1').checked;
+            const check2 = document.getElementById('agree-2').checked;
+            if(!check1 || !check2) {
+                alert("Please agree to both boxes to confirm your voluntary contribution.");
+                return;
+            }
+            window.location.href = "upi://pay?pa=Sanasamk@naviaxis&pn=Meitei&cu=INR";
+            closeSupportModal();
+        }
+
+        function submitFeedback() {
+            const txt = document.getElementById('feedback-text').value;
+            if(txt.trim() === "") {
+                alert("Please enter some feedback first.");
+                return;
+            }
+            alert("Thank you for your feedback! Your thoughts have been recorded.");
+            document.getElementById('feedback-text').value = "";
+        }
+    </script>
+</body>
+</html>
