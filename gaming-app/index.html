@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Deposit & Play Game</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Supabase Client Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+
+    <div class="max-w-md w-full bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-700">
+        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-400">Play & Win Arena</h1>
+        
+        <!-- Wallet Balance Card -->
+        <div class="bg-gray-900 p-4 rounded-lg mb-6 flex justify-between items-center border border-gray-700">
+            <div>
+                <p class="text-sm text-gray-400">Wallet Balance</p>
+                <p id="wallet-balance" class="text-2xl font-extrabold text-emerald-400">Loading...</p>
+            </div>
+            <button onclick="handleDeposit()" class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-sm font-semibold transition text-center">
+                Deposit ₹100
+                <span class="block text-xs text-yellow-300 font-normal">+30% Bonus</span>
+            </button>
+        </div>
+
+        <!-- Betting Section -->
+        <div class="space-y-4">
+            <div>
+                <label class="block text-sm text-gray-400 mb-1">Enter Bet Amount (Min: ₹10 | Max: ₹25,000)</label>
+                <input type="number" id="bet-input" value="50" min="10" max="25000" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white font-semibold focus:outline-none focus:border-indigo-500">
+            </div>
+
+            <!-- Game Action Buttons -->
+            <div class="flex gap-4">
+                <button onclick="handleGame(true)" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-3 rounded-lg font-bold transition text-sm">Simulate Win</button>
+                <button onclick="handleGame(false)" class="flex-1 bg-rose-600 hover:bg-rose-500 py-3 rounded-lg font-bold transition text-sm">Simulate Loss</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const SUPABASE_URL = 'https://lijezquiyfrmylejrsxh.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_kgTsOx4SMIYfRH2I1KJbpA_Id0PeBP5';
+        
+        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+        let currentBalance = 0.00;
+        let currentUserId = null;
+
+        window.onload = async function() {
+            let { data: { session }, error } = await supabaseClient.auth.getSession();
+            
+            if (!session) {
+                const { data, error: authError } = await supabaseClient.auth.signInAnonymously();
+                if (authError) {
+                    console.error('Auth error:', authError.message);
+                    alert('Auth error: ' + authError.message);
+                    return;
+                }
+                session = data.session;
+            }
+
+            if (session) {
+                currentUserId = session.user.id;
+                await fetchUserBalance();
+            }
+        };
+
+        async function fetchUserBalance() {
+            const { data, error } = await supabaseClient
+                .from('profiles')
+                .select('balance')
+                .eq('id', currentUserId)
+                .single();
+
+            if (error) {
+                console.error('Error fetching balance:', error.message);
+                currentBalance = 0.00;
+            } else if (data) {
+                currentBalance = parseFloat(data.balance);
+            }
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('wallet-balance').innerText = `₹${currentBalance.toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+        }
+
+        async function updateDatabaseBalance(newBalance, transactionType, amount) {
+            const { error: profileError } = await supabaseClient
+                .from('profiles')
+                .update({ balance: newBalance, updated_at: new Date() })
+                .eq('id', currentUserId);
+
+            if (profileError) {
+                alert('Database update failed: ' + profileError.message);
+                return false;
+            }
+
+            await supabaseClient
+                .from('transactions')
+                .insert({ user_id: currentUserId, type: transactionType, amount: amount });
+
+            currentBalance = newBalance;
+            updateUI();
+            return true;
+        }
+
+        async function handleDeposit() {
+            if (!currentUserId) return alert('Session loading, please wait...');
+            
+            const depositAmount = 100.00; 
+            const bonusPercentage = 30;
+            const bonusAmount = depositAmount * (bonusPercentage / 100); 
+            const totalCredit = depositAmount + bonusAmount;
+            const newBalance = currentBalance + totalCredit;
+
+            const success = await updateDatabaseBalance(newBalance, 'deposit', totalCredit);
+            if (success) {
+                alert(`Deposit Successful!\n• Deposited Amount: ₹${depositAmount}\n• Bonus (${bonusPercentage}%): ₹${bonusAmount}\n• Total Credited: ₹${totalCredit}`);
+            }
+        }
+
+        async function handleGame(won) {
+            if (!currentUserId) return alert('Session loading, please wait...');
+
+            const betInput = document.getElementById('bet-input');
+            const betAmount = parseFloat(betInput.value);
+
+            if (isNaN(betAmount) || betAmount < 10) {
+                alert('Minimum bet amount is ₹10.');
+                return;
+            }
+            if (betAmount > 25000) {
+                alert('Maximum bet amount is ₹25,000.');
+                return;
+            }
+            if (currentBalance < betAmount) {
+                alert('Insufficient balance! Please deposit funds to play.');
+                return;
+            }
+            
+            let newBalance;
+            let txType;
+
+            if (won) {
+                newBalance = currentBalance + betAmount;
+                txType = 'win';
+                alert(`You Won! +₹${betAmount.toLocaleString('en-IN')} added to your balance.`);
+            } else {
+                newBalance = currentBalance - betAmount;
+                txType = 'loss';
+                alert(`You Lost! -₹${betAmount.toLocaleString('en-IN')} deducted from your balance.`);
+            }
+
+            await updateDatabaseBalance(newBalance, txType, betAmount);
+        }
+    </script>
+</body>
+</html>
