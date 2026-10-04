@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DirLaunch - Niche Directory & Affiliate Hub Template</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Navbar -->
+    <header class="border-b border-slate-800/80 bg-slate-950/80 backdrop-blur sticky top-z-50 z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+            <div class="flex items-center space-x-2">
+                <div class="w-8 h-8 bg-emerald-600 rounded-lg flex items-center justify-center font-bold text-white shadow-lg shadow-emerald-600/20">
+                    <i class="fas fa-compass"></i>
+                </div>
+                <span class="text-xl font-black tracking-tight text-white">Dir<span class="text-emerald-400">Launch</span></span>
+            </div>
+            <div class="flex items-center space-x-3">
+                <span class="hidden sm:inline-block text-xs bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 px-3 py-1 rounded-full font-medium">
+                    ⚡ Affiliate Ready
+                </span>
+                <a href="#submit" class="bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2 px-4 rounded-xl text-xs md:text-sm transition shadow-lg flex items-center gap-2">
+                    <i class="fas fa-plus"></i> Submit Tool
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="flex-1 max-w-6xl w-full mx-auto px-6 py-10 space-y-10">
+        
+        <!-- Hero Section -->
+        <div class="text-center space-y-4 max-w-2xl mx-auto">
+            <h1 class="text-3xl md:text-5xl font-black tracking-tight text-white">
+                Discover the Best <span class="text-emerald-400">Developer & AI Tools</span>
+            </h1>
+            <p class="text-slate-400 text-sm md:text-base">
+                A high-converting, searchable directory template built for curators and indie hackers to launch resource hubs and earn affiliate revenue.
+            </p>
+            
+            <!-- Search Bar -->
+            <div class="pt-4">
+                <div class="flex items-center gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-2.5 shadow-2xl focus-within:border-emerald-500 transition">
+                    <i class="fas fa-search text-slate-500 pl-3"></i>
+                    <input id="search-input" type="text" placeholder="Search tools, tags, or keywords..." class="flex-1 bg-transparent border-none outline-none text-sm text-slate-100 placeholder-slate-500">
+                </div>
+            </div>
+        </div>
+
+        <!-- Category Filter Pills -->
+        <div class="flex items-center justify-start md:justify-center gap-2 overflow-x-auto pb-2 scrollbar-none">
+            <button onclick="filterCategory('all')" class="cat-btn active px-4 py-2 rounded-xl text-xs font-semibold bg-emerald-600 text-white transition shrink-0">All Tools</button>
+            <button onclick="filterCategory('ai')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-white transition shrink-0">AI Agents</button>
+            <button onclick="filterCategory('saas')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-white transition shrink-0">Developer SaaS</button>
+            <button onclick="filterCategory('design')" class="cat-btn px-4 py-2 rounded-xl text-xs font-semibold bg-slate-900 text-slate-400 hover:bg-slate-800 hover:text-white transition shrink-0">Design & UI</button>
+        </div>
+
+        <!-- Directory Grid -->
+        <div id="directory-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            
+            <!-- Card 1 -->
+            <div class="tool-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition group" data-category="ai" data-name="stella ai assistant voice text chat dashboard">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 bg-emerald-500/10 border border-emerald-500/20 rounded-xl flex items-center justify-center text-emerald-400 font-bold text-lg group-hover:scale-105 transition">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-medium">AI Agents</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white group-hover:text-emerald-400 transition">Stella AI Assistant</h3>
+                        <p class="text-slate-400 text-xs md:text-sm mt-1">Interactive voice & text dark-mode dashboard template for LLM wrappers.</p>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between">
+                    <span class="text-xs text-emerald-400 font-semibold"><i class="fas fa-fire"></i> Featured #1</span>
+                    <a href="#" target="_blank" class="bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs font-semibold py-2 px-4 rounded-xl transition flex items-center gap-1.5">
+                        Get Deal <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="tool-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition group" data-category="saas" data-name="saaslaunch tailwind css landing page boilerplate">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 bg-indigo-500/10 border border-indigo-500/20 rounded-xl flex items-center justify-center text-indigo-400 font-bold text-lg group-hover:scale-105 transition">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-medium">Developer SaaS</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white group-hover:text-emerald-400 transition">SaaSLaunch Boilerplate</h3>
+                        <p class="text-slate-400 text-xs md:text-sm mt-1">High-converting Tailwind CSS landing page template designed for indie hackers.</p>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between">
+                    <span class="text-xs text-indigo-400 font-semibold"><i class="fas fa-bolt"></i> Popular</span>
+                    <a href="#" target="_blank" class="bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs font-semibold py-2 px-4 rounded-xl transition flex items-center gap-1.5">
+                        Get Deal <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="tool-card bg-slate-900/60 border border-slate-800/80 rounded-2xl p-6 flex flex-col justify-between hover:border-emerald-500/50 transition group" data-category="design" data-name="tailwind ui components design kit">
+                <div class="space-y-4">
+                    <div class="flex items-center justify-between">
+                        <div class="w-12 h-12 bg-purple-500/10 border border-purple-500/20 rounded-xl flex items-center justify-center text-purple-400 font-bold text-lg group-hover:scale-105 transition">
+                            <i class="fas fa-palette"></i>
+                        </div>
+                        <span class="text-xs bg-slate-800 text-slate-300 px-3 py-1 rounded-full font-medium">Design & UI</span>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-base md:text-lg text-white group-hover:text-emerald-400 transition">Tailwind UI Kit Pro</h3>
+                        <p class="text-slate-400 text-xs md:text-sm mt-1">Production-ready dark mode UI blocks and component library for fast shipping.</p>
+                    </div>
+                </div>
+                <div class="pt-6 border-t border-slate-800/60 flex items-center justify-between">
+                    <span class="text-xs text-purple-400 font-semibold"><i class="fas fa-star"></i> Trending</span>
+                    <a href="#" target="_blank" class="bg-emerald-600/10 hover:bg-emerald-600 text-emerald-400 hover:text-white border border-emerald-500/30 text-xs font-semibold py-2 px-4 rounded-xl transition flex items-center gap-1.5">
+                        Get Deal <i class="fas fa-external-link-alt text-[10px]"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="border-t border-slate-800/80 bg-slate-950 py-8 text-center text-xs text-slate-500 space-y-2">
+        <p>DirLaunch Niche Directory Template • Powered by Tailwind CSS & JavaScript.</p>
+        <p class="text-emerald-400">Designed for developers worldwide to curate and monetize web traffic.</p>
+    </footer>
+
+    <!-- Search & Filter JavaScript -->
+    <script>
+        const searchInput = document.getElementById('search-input');
+        const toolCards = document.querySelectorAll('.tool-card');
+        const catButtons = document.querySelectorAll('.cat-btn');
+        let currentCategory = 'all';
+
+        function filterCategory(category) {
+            currentCategory = category;
+            catButtons.forEach(btn => {
+                btn.classList.remove('bg-emerald-600', 'text-white');
+                btn.classList.add('bg-slate-900', 'text-slate-400');
+            });
+            event.target.classList.remove('bg-slate-900', 'text-slate-400');
+            event.target.classList.add('bg-emerald-600', 'text-white');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = searchInput.value.toLowerCase().trim();
+            toolCards.forEach(card => {
+                const category = card.getAttribute('data-category');
+                const name = card.getAttribute('data-name');
+                
+                const matchesCategory = (currentCategory === 'all' || category === currentCategory);
+                const matchesSearch = name.includes(query);
+
+                if (matchesCategory && matchesSearch) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+
+        searchInput.addEventListener('input', applyFilters);
+    </script>
+</body>
+</html>
