@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vogue Street - Urban Fashion Store</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-zinc-950 text-white font-sans antialiased selection:bg-pink-600 selection:text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <span class="font-black tracking-widest text-sm text-pink-500">VOGUE <span class="text-white">STREET</span></span>
+        </div>
+        <a href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20check%20your%20clothing%20catalog!" target="_blank" class="bg-pink-600 hover:bg-pink-500 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-lg shadow-pink-600/30 transition flex items-center space-x-1.5">
+            <i class="fa-brands fa-whatsapp text-xs"></i>
+            <span>Shop on WhatsApp</span>
+        </a>
+    </header>
+
+    <!-- Hero Banner -->
+    <section class="relative px-4 py-16 text-center bg-cover bg-center border-b border-zinc-800" style="background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.7), rgba(9, 9, 11, 0.95)), url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800');">
+        <span class="bg-pink-500/20 text-pink-400 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-pink-500/30">✨ New Summer Collection</span>
+        <h1 class="text-3xl font-black mt-4 tracking-tight">Define Your <br><span class="text-pink-500">Own Style</span></h1>
+        <p class="text-xs text-zinc-400 mt-2 max-w-xs mx-auto">Discover premium streetwear and trendy casuals delivered right to your doorstep.</p>
+    </section>
+
+    <!-- Product Grid -->
+    <section class="px-4 py-8">
+        <h2 class="text-xs font-bold text-zinc-400 uppercase tracking-widest mb-4">Trending Outfits</h2>
+        <div class="grid grid-cols-2 gap-3">
+            <!-- Product 1 -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1521572267360-ee0c2909d518?w=400');"></div>
+                <div class="p-3">
+                    <h3 class="text-xs font-bold truncate">Oversized Graphic Tee</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-xs font-black text-pink-500">₹799</span>
+                        <a href="https://wa.me/919876543210?text=I%20want%20to%20buy%20Oversized%20Graphic%20Tee" target="_blank" class="bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">Buy</a>
+                    </div>
+                </div>
+            </div>
+            <!-- Product 2 -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-2xl overflow-hidden">
+                <div class="h-40 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1551028719-00167b16eac5?w=400');"></div>
+                <div class="p-3">
+                    <h3 class="text-xs font-bold truncate">Classic Denim Jacket</h3>
+                    <div class="flex justify-between items-center mt-2">
+                        <span class="text-xs font-black text-pink-500">₹1,899</span>
+                        <a href="https://wa.me/919876543210?text=I%20want%20to%20buy%20Classic%20Denim%20Jacket" target="_blank" class="bg-white/10 hover:bg-white/20 text-white text-[10px] font-bold px-2.5 py-1 rounded-lg">Buy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="p-4 text-center text-zinc-500 text-[10px] border-t border-zinc-800">
+        <p>© 2026 Vogue Street Boutique. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

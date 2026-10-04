@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grand Palace Hotel & Restaurant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-zinc-950 text-white font-sans antialiased selection:bg-amber-600 selection:text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-zinc-900/90 backdrop-blur-md border-b border-zinc-800 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <div class="w-8 h-8 bg-amber-600 rounded-lg flex items-center justify-center font-black text-white text-xs">
+                <i class="fa-solid fa-hotel"></i>
+            </div>
+            <span class="font-extrabold tracking-widest text-xs">GRAND <span class="text-amber-500">PALACE</span></span>
+        </div>
+        <a href="https://wa.me/919876543210?text=Hi,%20I%20want%20to%20book%20a%20room%20or%20table!" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-lg shadow-amber-600/30 transition flex items-center space-x-1.5">
+            <i class="fa-brands fa-whatsapp text-xs"></i>
+            <span>Reserve Now</span>
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="px-4 py-14 text-center bg-cover bg-center border-b border-zinc-800" style="background-image: linear-gradient(to bottom, rgba(9, 9, 11, 0.75), rgba(9, 9, 11, 0.95)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800');">
+        <span class="bg-amber-500/20 text-amber-400 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/30">🏨 Luxury Stay & Fine Dining</span>
+        <h1 class="text-3xl font-black mt-4 leading-tight">Experience Ultimate <br><span class="text-amber-500">Comfort & Elegance</span></h1>
+        <p class="text-xs text-zinc-400 mt-3 max-w-xs mx-auto">Indulge in five-star rooms, gourmet dining, and unmatched hospitality in the heart of the city.</p>
+        
+        <div class="mt-6 flex space-x-3 justify-center">
+            <a href="#rooms" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-5 py-3 rounded-2xl shadow-lg shadow-amber-600/30 transition">
+                Explore Rooms & Menu
+            </a>
+        </div>
+    </section>
+
+    <!-- Rooms & Suites -->
+    <section id="rooms" class="px-4 py-8">
+        <h2 class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4">Luxury Accommodations</h2>
+        <div class="space-y-3">
+            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex justify-between items-center">
+                <div>
+                    <h3 class="text-xs font-bold">Deluxe King Room</h3>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">King bed, city view, breakfast included</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-black text-amber-500">₹4,499</span>
+                    <p class="text-[9px] text-zinc-500">/night</p>
+                </div>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 p-4 rounded-2xl flex justify-between items-center">
+                <div>
+                    <h3 class="text-xs font-bold">Royal Executive Suite</h3>
+                    <p class="text-[10px] text-zinc-400 mt-0.5">Living room, jacuzzi, balcony</p>
+                </div>
+                <div class="text-right">
+                    <span class="text-xs font-black text-amber-500">₹8,999</span>
+                    <p class="text-[9px] text-zinc-500">/night</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restaurant & Dining -->
+    <section class="px-4 py-8 bg-zinc-900/50 border-t border-b border-zinc-800">
+        <h2 class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4">Palace Restaurant & Bar</h2>
+        <div class="space-y-3">
+            <div class="bg-zinc-900 border border-zinc-800 p-3.5 rounded-2xl flex items-center space-x-3">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=100" class="w-12 h-12 rounded-xl object-cover">
+                <div class="flex-1">
+                    <h3 class="text-xs font-bold">Signature Mughlai Platter</h3>
+                    <p class="text-[10px] text-zinc-400">Authentic charcoal-grilled specialties</p>
+                </div>
+                <span class="text-xs font-black text-amber-500">₹750</span>
+            </div>
+            <div class="bg-zinc-900 border border-zinc-800 p-3.5 rounded-2xl flex items-center space-x-3">
+                <img src="https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?w=100" class="w-12 h-12 rounded-xl object-cover">
+                <div class="flex-1">
+                    <h3 class="text-xs font-bold">Wood-Fired Pizza</h3>
+                    <p class="text-[10px] text-zinc-400">Fresh mozzarella & artisan herbs</p>
+                </div>
+                <span class="text-xs font-black text-amber-500">₹499</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Contact -->
+    <section class="px-4 py-6 text-xs text-zinc-300">
+        <h2 class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-3">Hotel Location</h2>
+        <p class="mb-2"><i class="fa-solid fa-location-dot text-amber-500 mr-2"></i> 100 Royal Boulevard, Near Central Lake, City Center</p>
+        <p><i class="fa-solid fa-phone text-amber-500 mr-2"></i> Front Desk: +91 98765 43210</p>
+    </section>
+
+    <footer class="p-4 text-center text-zinc-600 text-[10px] border-t border-zinc-800">
+        <p>© 2026 Grand Palace Hotel & Restaurant. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

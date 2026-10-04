@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bean & Brew - Artisan Café</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-[#12100e] text-amber-50 font-sans antialiased selection:bg-amber-600 selection:text-white">
+
+    <!-- Header -->
+    <header class="sticky top-0 z-50 bg-[#12100e]/90 backdrop-blur-md border-b border-amber-900/30 px-4 py-3 flex justify-between items-center">
+        <div class="flex items-center space-x-2">
+            <i class="fa-solid fa-mug-hot text-amber-500 text-lg"></i>
+            <span class="font-extrabold tracking-wider text-sm">BEAN & <span class="text-amber-500">BREW</span></span>
+        </div>
+        <a href="https://wa.me/919876543210?text=Hi,%20I%20would%20like%20to%20order%20from%20the%20menu!" target="_blank" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-3.5 py-2 rounded-full shadow-lg shadow-amber-600/20 transition flex items-center space-x-1.5">
+            <i class="fa-brands fa-whatsapp text-xs"></i>
+            <span>Order Online</span>
+        </a>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative px-4 py-14 text-center bg-cover bg-center border-b border-amber-900/30" style="background-image: linear-gradient(to bottom, rgba(18, 16, 14, 0.85), rgba(18, 16, 14, 0.98)), url('https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=800');">
+        <span class="bg-amber-500/10 text-amber-400 text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider border border-amber-500/20">☕ Freshly Roasted Daily</span>
+        <h1 class="text-3xl font-black mt-4 leading-tight">Artisan Coffee & <br><span class="text-amber-500">Cozy Vibes</span></h1>
+        <p class="text-xs text-amber-200/70 mt-3 max-w-xs mx-auto">Experience hand-crafted brews, freshly baked pastries, and the best workspace atmosphere in town.</p>
+        
+        <div class="mt-6 flex space-x-3 justify-center">
+            <a href="#menu" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-6 py-3 rounded-2xl shadow-lg shadow-amber-600/30 transition">
+                View Menu
+            </a>
+        </div>
+    </section>
+
+    <!-- Menu Section -->
+    <section id="menu" class="px-4 py-8">
+        <h2 class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4">Customer Favorites</h2>
+        <div class="space-y-3">
+            <!-- Item 1 -->
+            <div class="bg-amber-950/20 border border-amber-900/30 p-3.5 rounded-2xl flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?w=100" class="w-12 h-12 rounded-xl object-cover">
+                    <div>
+                        <h3 class="text-xs font-bold">Caramel Macchiato</h3>
+                        <p class="text-[10px] text-amber-200/50">Espresso with vanilla & caramel</p>
+                    </div>
+                </div>
+                <span class="text-xs font-black text-amber-400">₹220</span>
+            </div>
+            <!-- Item 2 -->
+            <div class="bg-amber-950/20 border border-amber-900/30 p-3.5 rounded-2xl flex justify-between items-center">
+                <div class="flex items-center space-x-3">
+                    <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=100" class="w-12 h-12 rounded-xl object-cover">
+                    <div>
+                        <h3 class="text-xs font-bold">Avocado Sourdough Toast</h3>
+                        <p class="text-[10px] text-amber-200/50">Fresh avocado, seeds, olive oil</p>
+                    </div>
+                </div>
+                <span class="text-xs font-black text-amber-400">₹340</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Location & Timings -->
+    <section class="px-4 py-6 bg-amber-950/10 border-t border-amber-900/30">
+        <h2 class="text-xs font-bold text-amber-500 uppercase tracking-widest mb-4">Find Us Here</h2>
+        <div class="space-y-3 text-xs text-amber-200/80">
+            <div class="flex items-start space-x-3">
+                <i class="fa-solid fa-location-dot text-amber-500 mt-0.5"></i>
+                <p>45 Heritage Lane, Old Market Road, City Center</p>
+            </div>
+            <div class="flex items-center space-x-3">
+                <i class="fa-solid fa-clock text-amber-500"></i>
+                <p>Mon - Sun: 8:00 AM – 11:00 PM</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="p-6 text-center text-amber-200/40 text-[10px] border-t border-amber-900/30">
+        <p>© 2026 Bean & Brew Café. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
