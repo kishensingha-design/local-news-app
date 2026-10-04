@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tool Pro - High-Yield AI Software & Tool Directory</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        yieldDark: '#090d16',
+                        yieldBlue: '#4f46e5',
+                        yieldAccent: '#06b6d4',
+                        yieldCard: '#111827',
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .hide { display: none !important; }
+    </style>
+</head>
+<body class="bg-yieldDark text-slate-100 font-sans antialiased min-h-screen flex flex-col">
+
+    <!-- ==================== HEADER / NAVBAR ==================== -->
+    <header class="bg-slate-900/80 backdrop-blur border-b border-slate-800 sticky top-0 z-50 px-4 py-3 flex items-center justify-between shadow-lg">
+        <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-gradient-to-tr from-yieldBlue to-yieldAccent rounded-xl flex items-center justify-center font-bold text-white text-xl shadow">
+                <i class="fas fa-bolt"></i>
+            </div>
+            <span class="text-2xl font-black tracking-tight bg-gradient-to-r from-white via-indigo-200 to-yieldAccent bg-clip-text text-transparent">AI Tool Pro</span>
+        </div>
+        <div class="flex items-center space-x-3">
+            <button onclick="openSubmitModal()" class="bg-yieldBlue hover:bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-semibold transition shadow flex items-center gap-2">
+                <i class="fas fa-plus"></i> Submit Deal
+            </button>
+        </div>
+    </header>
+
+    <!-- ==================== HERO SECTION ==================== -->
+    <section class="px-4 py-12 text-center max-w-4xl mx-auto space-y-6">
+        <span class="bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs px-3 py-1.5 rounded-full font-medium uppercase tracking-wider">
+            💎 High-Commission AI & Software Directory
+        </span>
+        <h1 class="text-4xl md:text-6xl font-black tracking-tight leading-tight">
+            Scale Your Workflow With <span class="bg-gradient-to-r from-indigo-400 to-yieldAccent bg-clip-text text-transparent">Elite AI Tools</span>
+        </h1>
+        <p class="text-slate-400 text-base md:text-lg max-w-2xl mx-auto">
+            Discover industry-leading artificial intelligence models, automation suites, and high-payout software solutions.
+        </p>
+
+        <!-- Search Bar -->
+        <div class="relative max-w-xl mx-auto">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400"><i class="fas fa-search"></i></span>
+            <input type="text" id="searchInput" oninput="filterTools()" placeholder="Search AI generators, SEO, automation tools..." 
+                class="w-full bg-slate-900 border border-slate-800 rounded-2xl pl-12 pr-4 py-4 text-slate-100 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-yieldBlue text-base shadow-xl">
+        </div>
+    </section>
+
+    <!-- ==================== HIGH-PAYOUT SPONSOR BANNER ==================== -->
+    <section class="max-w-6xl w-full mx-auto px-4 mb-10">
+        <div class="bg-gradient-to-r from-indigo-950/60 via-purple-950/40 to-slate-900 border border-indigo-500/40 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl relative overflow-hidden">
+            <div class="absolute -right-10 -bottom-10 w-48 h-48 bg-indigo-500/20 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="space-y-2 text-center md:text-left">
+                <span class="bg-amber-500/20 text-amber-400 border border-amber-500/30 text-xs px-2.5 py-1 rounded-md font-bold uppercase">🔥 Top Payout Highlight</span>
+                <h3 class="text-2xl md:text-3xl font-extrabold text-white">Semrush AI Marketing Suite</h3>
+                <p class="text-slate-300 text-sm max-w-xl">Earn massive bounties for every business and marketer that signs up through your AI Tool Pro link.</p>
+            </div>
+            <a href="https://www.semrush.com" target="_blank" rel="nofollow sponsored" class="bg-gradient-to-r from-yieldBlue to-indigo-600 hover:from-indigo-600 hover:to-indigo-700 text-white font-bold px-6 py-3.5 rounded-xl shadow-lg transition transform hover:scale-105 flex items-center gap-2 whitespace-nowrap">
+                Unlock High Payout <i class="fas fa-external-link-alt text-xs"></i>
+            </a>
+        </div>
+    </section>
+
+    <!-- ==================== MAIN CONTENT & CATEGORIES ==================== -->
+    <main class="max-w-6xl w-full mx-auto px-4 flex-1 pb-16 space-y-8">
+        <!-- Category Filter Pills -->
+        <div class="flex items-center space-x-2 overflow-x-auto pb-2 scrollbar-none">
+            <button onclick="setCategory('All')" id="cat-All" class="cat-btn bg-yieldBlue text-white px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition shadow">All Tools</button>
+            <button onclick="setCategory('Saved')" id="cat-Saved" class="cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition">⭐ Saved</button>
+            <button onclick="setCategory('AI & LLMs')" id="cat-AI & LLMs" class="cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition">🤖 AI & LLMs</button>
+            <button onclick="setCategory('Marketing & SEO')" id="cat-Marketing & SEO" class="cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition">📈 Marketing & SEO</button>
+            <button onclick="setCategory('Automation')" id="cat-Automation" class="cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition">⚡ Automation</button>
+            <button onclick="setCategory('Business & CRM')" id="cat-Business & CRM" class="cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition">💼 Business & CRM</button>
+        </div>
+
+        <!-- Tools Grid -->
+        <div id="toolsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <!-- Dynamic cards rendered via JS -->
+        </div>
+    </main>
+
+    <!-- ==================== SUBMIT MODAL ==================== -->
+    <div id="submitModal" class="fixed inset-0 bg-black bg-opacity-70 z-50 flex items-center justify-center hide p-4 backdrop-blur-sm">
+        <div class="bg-slate-900 border border-slate-800 rounded-2xl max-w-md w-full p-6 relative shadow-2xl">
+            <button onclick="closeSubmitModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl font-bold">&times;</button>
+            <h3 class="text-2xl font-bold mb-1 text-white">Submit AI Deal</h3>
+            <p class="text-slate-400 text-xs mb-6">Promote an AI product with affiliate commissions.</p>
+            
+            <form onsubmit="handleToolSubmit(event)" class="space-y-4">
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Tool Name</label>
+                    <input type="text" id="newToolName" required placeholder="e.g. ChatGPT Pro" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-yieldBlue text-sm">
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Category</label>
+                    <select id="newToolCategory" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-yieldBlue text-sm">
+                        <option value="AI & LLMs">AI & LLMs</option>
+                        <option value="Marketing & SEO">Marketing & SEO</option>
+                        <option value="Automation">Automation</option>
+                        <option value="Business & CRM">Business & CRM</option>
+                    </select>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Description & Commission Highlight</label>
+                    <textarea id="newToolDesc" rows="3" required placeholder="Describe features and payout..." class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-yieldBlue text-sm resize-none"></textarea>
+                </div>
+                <div>
+                    <label class="text-xs text-slate-400 block mb-1">Your Affiliate Referral Link</label>
+                    <input type="url" id="newToolLink" required placeholder="https://partner.com?ref=yourid" class="w-full bg-slate-950 border border-slate-800 rounded-xl p-3 text-slate-100 focus:outline-none focus:ring-2 focus:ring-yieldBlue text-sm">
+                </div>
+                <button type="submit" class="w-full bg-yieldBlue hover:bg-indigo-600 text-white font-bold py-3 rounded-xl transition shadow">Publish Tool Deal</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-8 px-4 text-center text-slate-500 text-xs space-y-2">
+        <p>© 2026 AI Tool Pro. Affiliate Disclosure: Commissions earned on qualifying software and AI purchases.</p>
+    </footer>
+
+    <!-- ==================== APPLICATION CONTROLLER ==================== -->
+    <script>
+        let defaultTools = [
+            {
+                id: 1,
+                name: "Google AI Studio",
+                category: "AI & LLMs",
+                desc: "Build next-gen applications with Gemini multimodal LLMs and high-limit API tiers.",
+                link: "https://aistudio.google.com",
+                payout: "Free / Pro",
+                upvotes: 245,
+                saved: false
+            },
+            {
+                id: 2,
+                name: "Semrush AI",
+                category: "Marketing & SEO",
+                desc: "Advanced AI-powered marketing visibility and SEO optimization suite. High referral bounties.",
+                link: "https://www.semrush.com",
+                payout: "High Commission",
+                upvotes: 142,
+                saved: false
+            },
+            {
+                id: 3,
+                name: "Shopify",
+                category: "Business & CRM",
+                desc: "The premier e-commerce platform. Earn substantial cash bounties for every store launched.",
+                link: "https://www.shopify.com",
+                payout: "$150+ Bounty",
+                upvotes: 210,
+                saved: false
+            },
+            {
+                id: 4,
+                name: "HubSpot AI",
+                category: "Business & CRM",
+                desc: "AI-driven CRM, sales, and marketing automation. Earn 30% recurring commissions.",
+                link: "https://www.hubspot.com",
+                payout: "30% Recurring",
+                upvotes: 185,
+                saved: false
+            },
+            {
+                id: 5,
+                name: "Make.com",
+                category: "Automation",
+                desc: "Powerful visual platform to automate workflows and connect AI apps without coding.",
+                link: "https://www.make.com",
+                payout: "Recurring",
+                upvotes: 164,
+                saved: false
+            },
+            {
+                id: 6,
+                name: "GetResponse AI",
+                category: "Marketing & SEO",
+                desc: "AI email marketing and landing page generator. Earn 40%–60% recurring monthly commission.",
+                link: "https://www.getresponse.com",
+                payout: "60% Recurring",
+                upvotes: 130,
+                saved: false
+            }
+        ];
+
+        let userTools = JSON.parse(localStorage.getItem('aitoolpro_user_tools')) || [];
+        let savedIds = JSON.parse(localStorage.getItem('aitoolpro_saved_ids')) || [];
+        let upvotesMap = JSON.parse(localStorage.getItem('aitoolpro_upvotes')) || {};
+
+        let allTools = [...userTools, ...defaultTools];
+        let currentCategory = 'All';
+
+        allTools.forEach(t => {
+            if(savedIds.includes(t.id)) t.saved = true;
+            if(upvotesMap[t.id] !== undefined) t.upvotes = upvotesMap[t.id];
+        });
+
+        window.onload = function() {
+            renderTools();
+        };
+
+        function setCategory(cat) {
+            currentCategory = cat;
+            document.querySelectorAll('.cat-btn').forEach(btn => {
+                btn.className = "cat-btn bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-800 px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition";
+            });
+            const activeBtn = document.getElementById(`cat-${cat}`);
+            if(activeBtn) {
+                activeBtn.className = "cat-btn bg-yieldBlue text-white px-5 py-2 rounded-xl text-sm font-semibold whitespace-nowrap transition shadow";
+            }
+            renderTools();
+        }
+
+        function filterTools() {
+            renderTools();
+        }
+
+        function toggleSave(id) {
+            const tool = allTools.find(t => t.id === id);
+            if(tool) {
+                tool.saved = !tool.saved;
+                if(tool.saved) {
+                    if(!savedIds.includes(id)) savedIds.push(id);
+                } else {
+                    savedIds = savedIds.filter(item => item !== id);
+                }
+                localStorage.setItem('aitoolpro_saved_ids', JSON.stringify(savedIds));
+                renderTools();
+            }
+        }
+
+        function upvoteTool(id) {
+            const tool = allTools.find(t => t.id === id);
+            if(tool) {
+                tool.upvotes = (tool.upvotes || 0) + 1;
+                upvotesMap[id] = tool.upvotes;
+                localStorage.setItem('aitoolpro_upvotes', JSON.stringify(upvotesMap));
+                renderTools();
+            }
+        }
+
+        function renderTools() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const grid = document.getElementById('toolsGrid');
+            
+            let filtered = allTools.filter(t => {
+                let matchesCat = currentCategory === 'All' || 
+                                 (currentCategory === 'Saved' && t.saved) || 
+                                 t.category === currentCategory;
+                let matchesQuery = t.name.toLowerCase().includes(query) || t.desc.toLowerCase().includes(query);
+                return matchesCat && matchesQuery;
+            });
+
+            if(filtered.length === 0) {
+                grid.innerHTML = `<div class="col-span-full text-center py-12 text-slate-500">No tool deals found matching your search.</div>`;
+                return;
+            }
+
+            grid.innerHTML = filtered.map(t => `
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 flex flex-col justify-between hover:border-slate-700 transition shadow-xl space-y-4 relative">
+                    <button onclick="toggleSave(${t.id})" class="absolute top-6 right-6 text-xl ${t.saved ? 'text-amber-400' : 'text-slate-600 hover:text-slate-400'} transition">
+                        <i class="fas fa-star"></i>
+                    </button>
+                    <div class="space-y-2 pr-8">
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-semibold px-2.5 py-1 rounded-md bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">${t.category}</span>
+                            ${t.payout ? `<span class="text-xs bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-bold">${t.payout}</span>` : ''}
+                        </div>
+                        <h3 class="text-xl font-bold text-white">${t.name}</h3>
+                        <p class="text-slate-400 text-sm leading-relaxed">${t.desc}</p>
+                    </div>
+                    <div class="pt-4 border-t border-slate-800/60 flex items-center justify-between">
+                        <button onclick="upvoteTool(${t.id})" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs font-bold px-3 py-1.5 rounded-lg transition flex items-center gap-1.5">
+                            <i class="fas fa-chevron-up text-yieldAccent"></i> ${t.upvotes || 0} Upvotes
+                        </button>
+                        <a href="${t.link}" target="_blank" rel="nofollow sponsored" class="bg-yieldBlue hover:bg-indigo-600 text-white text-sm font-semibold px-4 py-2 rounded-xl transition flex items-center gap-2">
+                            Claim Deal <i class="fas fa-arrow-right text-xs"></i>
+                        </a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function openSubmitModal() {
+            document.getElementById('submitModal').classList.remove('hide');
+        }
+
+        function closeSubmitModal() {
+            document.getElementById('submitModal').classList.add('hide');
+        }
+
+        function handleToolSubmit(e) {
+            e.preventDefault();
+            const newTool = {
+                id: Date.now(),
+                name: document.getElementById('newToolName').value.trim(),
+                category: document.getElementById('newToolCategory').value,
+                desc: document.getElementById('newToolDesc').value.trim(),
+                link: document.getElementById('newToolLink').value.trim(),
+                payout: 'Custom Deal',
+                upvotes: 1,
+                saved: false
+            };
+
+            userTools.unshift(newTool);
+            allTools = [...userTools, ...defaultTools];
+            localStorage.setItem('aitoolpro_user_tools', JSON.stringify(userTools));
+            
+            closeSubmitModal();
+            setCategory('All');
+            alert('Tool deal successfully published!');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
