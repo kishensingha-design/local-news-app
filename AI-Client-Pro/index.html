@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Client Pro - Modern AI Chat Dashboard Template</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased h-screen flex overflow-hidden">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-slate-900 border-r border-slate-800 hidden md:flex flex-col justify-between p-4">
+        <div class="space-y-6">
+            <div class="flex items-center space-x-2 px-2">
+                <div class="w-8 h-8 bg-indigo-600 rounded-lg flex items-center justify-center font-bold text-white">
+                    <i class="fas fa-brain"></i>
+                </div>
+                <span class="text-xl font-black tracking-tight">AI Client Pro</span>
+            </div>
+            <button class="w-full bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-2.5 px-4 rounded-xl text-sm flex items-center justify-center gap-2 transition shadow-lg">
+                <i class="fas fa-plus"></i> New Chat
+            </button>
+            <div class="space-y-1 text-xs text-slate-400 px-2">
+                <p class="font-semibold text-slate-500 uppercase tracking-wider mb-2">Recent Chats</p>
+                <a href="#" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-slate-300 truncate">Tailwind Landing Page Assistant</a>
+                <a href="#" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-slate-300 truncate">Python Code Debugger</a>
+                <a href="#" class="block py-2 px-3 rounded-lg hover:bg-slate-800 text-slate-300 truncate">Marketing Copy Generator</a>
+            </div>
+        </div>
+        <div class="border-t border-slate-800 pt-4 px-2 text-xs text-slate-500 flex items-center justify-between">
+            <span>v1.0.0 Pro</span>
+            <span class="text-indigo-400 font-medium">Ready</span>
+        </div>
+    </aside>
+
+    <!-- Main Chat Area -->
+    <main class="flex-1 flex flex-col justify-between h-full bg-slate-950">
+        
+        <!-- Chat Header -->
+        <header class="border-b border-slate-800/80 px-6 py-4 flex items-center justify-between bg-slate-950/80 backdrop-blur">
+            <div class="flex items-center space-x-3">
+                <span class="w-3 h-3 bg-emerald-500 rounded-full animate-pulse"></span>
+                <h1 class="font-bold text-sm md:text-base">Stella AI Assistant</h1>
+            </div>
+            <span class="text-xs bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 px-3 py-1 rounded-full font-medium">
+                ⚡ Voice & Text Enabled
+            </span>
+        </header>
+
+        <!-- Message Feed -->
+        <div id="message-feed" class="flex-1 overflow-y-auto p-4 md:p-6 space-y-6 max-w-4xl w-full mx-auto">
+            <!-- Bot Message -->
+            <div class="flex items-start gap-4">
+                <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white shrink-0"><i class="fas fa-robot text-sm"></i></div>
+                <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-sm text-slate-300 max-w-xl space-y-2">
+                    <p>Hello! I am Stella. Type your message or tap the microphone icon to speak your prompt.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Input Bar -->
+        <div class="p-4 md:p-6 bg-slate-950 border-t border-slate-800/80">
+            <div class="max-w-4xl mx-auto flex items-center gap-3 bg-slate-900 border border-slate-800 rounded-2xl p-2 focus-within:border-indigo-500 transition">
+                <input id="chat-input" type="text" placeholder="Type or speak a prompt..." class="flex-1 bg-transparent border-none outline-none px-4 text-sm text-slate-100 placeholder-slate-500">
+                
+                <!-- Voice Mic Button -->
+                <button id="mic-btn" title="Speak Prompt" class="text-slate-400 hover:text-indigo-400 w-10 h-10 rounded-xl flex items-center justify-center transition shrink-0">
+                    <i class="fas fa-microphone text-sm"></i>
+                </button>
+
+                <!-- Send Button -->
+                <button id="send-btn" class="bg-indigo-600 hover:bg-indigo-500 text-white w-10 h-10 rounded-xl flex items-center justify-center transition shadow-lg shrink-0">
+                    <i class="fas fa-paper-plane text-sm"></i>
+                </button>
+            </div>
+            <p class="text-center text-xs text-slate-500 mt-3">Stella AI Assistant • Voice & Text Boilerplate for Developers.</p>
+        </div>
+
+    </main>
+
+    <!-- Interactive Chat Script (Text & Voice) -->
+    <script>
+        const inputField = document.getElementById('chat-input');
+        const sendButton = document.getElementById('send-btn');
+        const micButton = document.getElementById('mic-btn');
+        const messageFeed = document.getElementById('message-feed');
+
+        function handleSend() {
+            const text = inputField.value.trim();
+            if (!text) return;
+
+            // 1. Append User Message
+            const userDiv = document.createElement('div');
+            userDiv.className = 'flex items-start gap-4 justify-end';
+            userDiv.innerHTML = `
+                <div class="bg-indigo-600 p-4 rounded-2xl text-sm text-white max-w-xl">
+                    <p>${escapeHtml(text)}</p>
+                </div>
+                <div class="w-8 h-8 rounded-full bg-slate-700 flex items-center justify-center text-white shrink-0"><i class="fas fa-user text-sm"></i></div>
+            `;
+            messageFeed.appendChild(userDiv);
+            inputField.value = '';
+            messageFeed.scrollTop = messageFeed.scrollHeight;
+
+            // 2. Simulate AI Response after 1 second
+            setTimeout(() => {
+                const botDiv = document.createElement('div');
+                botDiv.className = 'flex items-start gap-4';
+                botDiv.innerHTML = `
+                    <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center text-white shrink-0"><i class="fas fa-robot text-sm"></i></div>
+                    <div class="bg-slate-900 border border-slate-800 p-4 rounded-2xl text-sm text-slate-300 max-w-xl space-y-2">
+                        <p>Stella Echo: "${escapeHtml(text)}"</p>
+                        <p class="text-xs text-indigo-400 font-medium">✨ Ready to be connected to any LLM API.</p>
+                    </div>
+                `;
+                messageFeed.appendChild(botDiv);
+                messageFeed.scrollTop = messageFeed.scrollHeight;
+            }, 1000);
+        }
+
+        function escapeHtml(str) {
+            return str.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        }
+
+        // Voice Recognition Integration
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (SpeechRecognition) {
+            const recognition = new SpeechRecognition();
+            recognition.continuous = false;
+            recognition.interimResults = false;
+
+            micButton.addEventListener('click', () => {
+                try {
+                    recognition.start();
+                    micButton.classList.add('text-red-500', 'animate-pulse');
+                } catch (e) {
+                    console.log(e);
+                }
+            });
+
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                inputField.value = transcript;
+                micButton.classList.remove('text-red-500', 'animate-pulse');
+                handleSend(); // Automatically sends the spoken prompt!
+            };
+
+            recognition.onerror = () => {
+                micButton.classList.remove('text-red-500', 'animate-pulse');
+            };
+
+            recognition.onend = () => {
+                micButton.classList.remove('text-red-500', 'animate-pulse');
+            };
+        } else {
+            micButton.style.display = 'none'; // Hide if browser doesn't support speech
+        }
+
+        sendButton.addEventListener('click', handleSend);
+        inputField.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') handleSend();
+        });
+    </script>
+</body>
+</html>
