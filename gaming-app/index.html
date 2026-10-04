@@ -4,40 +4,78 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Deposit & Play Game</title>
-    <!-- Tailwind CSS for styling -->
-    <script src="https://cdn.tailwindcss.com"></script>
     <!-- Supabase Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <style>
+        body { background-color: #111827; color: #ffffff; font-family: system-ui, -apple-system, sans-serif; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; margin: 0; padding: 1rem; }
+        .card { max-width: 28rem; width: 100%; background-color: #1f2937; border-radius: 0.75rem; padding: 1.5rem; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3); border: 1px solid #374151; margin-bottom: 1rem; }
+        h1 { font-size: 1.5rem; font-weight: bold; text-align: center; margin-bottom: 1.5rem; color: #818cf8; }
+        .wallet-box { background-color: #111827; padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; display: flex; justify-content: space-between; align-items: center; border: 1px solid #374151; }
+        .wallet-title { font-size: 0.875rem; color: #9ca3af; margin: 0; }
+        .wallet-balance { font-size: 1.5rem; font-weight: 800; color: #34d399; margin: 0; }
+        .deposit-btn { background-color: #059669; color: white; border: none; padding: 0.5rem 1rem; border-radius: 0.5rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-align: center; }
+        .deposit-btn:hover { background-color: #10b981; }
+        .bonus-text { display: block; font-size: 0.75rem; color: #fde047; font-weight: normal; }
+        label { display: block; font-size: 0.875rem; color: #9ca3af; margin-bottom: 0.25rem; }
+        input { width: 100%; background-color: #111827; border: 1px solid #374151; border-radius: 0.5rem; padding: 0.75rem; color: white; font-weight: 600; box-sizing: border-box; margin-bottom: 1rem; outline: none; }
+        input:focus { border-color: #6366f1; }
+        .actions { display: flex; gap: 1rem; margin-bottom: 1rem; }
+        .action-btn { flex: 1; padding: 0.75rem; border-radius: 0.5rem; font-weight: bold; font-size: 0.875rem; border: none; cursor: pointer; color: white; }
+        .win-btn { background-color: #4f46e5; }
+        .win-btn:hover { background-color: #6366f1; }
+        .loss-btn { background-color: #e11d48; }
+        .loss-btn:hover { background-color: #f43f5e; }
+        .withdraw-btn { background-color: #d97706; width: 100%; padding: 0.75rem; border-radius: 0.5rem; font-weight: bold; font-size: 0.875rem; border: none; cursor: pointer; color: white; }
+        .withdraw-btn:hover { background-color: #f59e0b; }
+        .section-title { font-size: 1rem; font-weight: 600; color: #93c5fd; margin-bottom: 0.75rem; border-bottom: 1px solid #374151; padding-bottom: 0.5rem; }
+    </style>
 </head>
-<body class="bg-gray-900 text-white min-h-screen flex flex-col items-center justify-center p-4">
+<body>
 
-    <div class="max-w-md w-full bg-gray-800 rounded-xl p-6 shadow-xl border border-gray-700">
-        <h1 class="text-2xl font-bold text-center mb-6 text-indigo-400">Play & Win Arena</h1>
+    <div class="card">
+        <h1>Play & Win Arena</h1>
         
         <!-- Wallet Balance Card -->
-        <div class="bg-gray-900 p-4 rounded-lg mb-6 flex justify-between items-center border border-gray-700">
+        <div class="wallet-box">
             <div>
-                <p class="text-sm text-gray-400">Wallet Balance</p>
-                <p id="wallet-balance" class="text-2xl font-extrabold text-emerald-400">Loading...</p>
+                <p class="wallet-title">Wallet Balance</p>
+                <p id="wallet-balance" class="wallet-balance">Loading...</p>
             </div>
-            <button onclick="handleDeposit()" class="bg-emerald-600 hover:bg-emerald-500 px-4 py-2 rounded-lg text-sm font-semibold transition text-center">
+            <button onclick="handleDeposit()" class="deposit-btn">
                 Deposit ₹100
-                <span class="block text-xs text-yellow-300 font-normal">+30% Bonus</span>
+                <span class="bonus-text">+30% Bonus</span>
             </button>
         </div>
 
         <!-- Betting Section -->
-        <div class="space-y-4">
-            <div>
-                <label class="block text-sm text-gray-400 mb-1">Enter Bet Amount (Min: ₹10 | Max: ₹25,000)</label>
-                <input type="number" id="bet-input" value="50" min="10" max="25000" class="w-full bg-gray-900 border border-gray-700 rounded-lg p-3 text-white font-semibold focus:outline-none focus:border-indigo-500">
-            </div>
+        <div class="section-title">Game Play</div>
+        <div>
+            <label>Enter Bet Amount (Min: ₹10 | Max: ₹25,000)</label>
+            <input type="number" id="bet-input" value="50" min="10" max="25000">
 
             <!-- Game Action Buttons -->
-            <div class="flex gap-4">
-                <button onclick="handleGame(true)" class="flex-1 bg-indigo-600 hover:bg-indigo-500 py-3 rounded-lg font-bold transition text-sm">Simulate Win</button>
-                <button onclick="handleGame(false)" class="flex-1 bg-rose-600 hover:bg-rose-500 py-3 rounded-lg font-bold transition text-sm">Simulate Loss</button>
+            <div class="actions">
+                <button onclick="handleGame(true)" class="action-btn win-btn">Simulate Win</button>
+                <button onclick="handleGame(false)" class="action-btn loss-btn">Simulate Loss</button>
             </div>
+        </div>
+
+        <!-- Bank Withdrawal Section -->
+        <div class="section-title" style="margin-top: 1.5rem;">Bank Account Withdrawal</div>
+        <div>
+            <label>Account Holder Name</label>
+            <input type="text" id="acc-name" placeholder="Name as per bank record">
+
+            <label>Bank Account Number</label>
+            <input type="password" id="acc-number" placeholder="Enter account number">
+
+            <label>IFSC Code</label>
+            <input type="text" id="ifsc-code" placeholder="e.g., SBIN0001234" style="text-transform: uppercase;">
+
+            <label>Withdrawal Amount (Min: ₹100)</label>
+            <input type="number" id="withdraw-input" value="500" min="100">
+
+            <button onclick="handleBankWithdrawal()" class="withdraw-btn">Withdraw to Bank</button>
         </div>
     </div>
 
@@ -157,6 +195,43 @@
             }
 
             await updateDatabaseBalance(newBalance, txType, betAmount);
+        }
+
+        async function handleBankWithdrawal() {
+            if (!currentUserId) return alert('Session loading, please wait...');
+
+            const accName = document.getElementById('acc-name').value.trim();
+            const accNumber = document.getElementById('acc-number').value.trim();
+            const ifscCode = document.getElementById('ifsc-code').value.trim().toUpperCase();
+            const withdrawAmount = parseFloat(document.getElementById('withdraw-input').value);
+
+            if (!accName) {
+                alert('Please enter the Account Holder Name.');
+                return;
+            }
+            if (!accNumber || accNumber.length < 9) {
+                alert('Please enter a valid Bank Account Number.');
+                return;
+            }
+            if (!ifscCode || ifscCode.length !== 11) {
+                alert('Please enter a valid 11-character IFSC Code.');
+                return;
+            }
+            if (isNaN(withdrawAmount) || withdrawAmount < 100) {
+                alert('Minimum withdrawal amount is ₹100.');
+                return;
+            }
+            if (currentBalance < withdrawAmount) {
+                alert('Insufficient balance for this withdrawal request.');
+                return;
+            }
+
+            const newBalance = currentBalance - withdrawAmount;
+            const success = await updateDatabaseBalance(newBalance, 'bank_withdrawal', withdrawAmount);
+
+            if (success) {
+                alert(`Bank Withdrawal Request Submitted!\n• Amount: ₹${withdrawAmount}\n• Account Holder: ${accName}\n• IFSC: ${ifscCode}\n• Remaining Balance: ₹${newBalance}\n\nFunds will be credited via NEFT/IMPS to your bank account.`);
+            }
         }
     </script>
 </body>
