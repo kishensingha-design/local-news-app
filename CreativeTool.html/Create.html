@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevStack Hub | Curated SaaS & Developer Tools</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Alpine.js for instant search filtering -->
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 font-sans antialiased min-h-screen flex flex-col justify-between">
+
+    <!-- Header / Hero Section -->
+    <header class="bg-slate-900 border-b border-slate-800 py-10 px-4">
+        <div class="max-w-4xl mx-auto text-center">
+            <span class="bg-indigo-500/10 text-indigo-400 text-xs font-semibold px-3 py-1 rounded-full uppercase tracking-wider border border-indigo-500/20">Curated Tech Stack</span>
+            <h1 class="text-3xl sm:text-5xl font-extrabold mt-4 tracking-tight text-white">DevStack Hub</h1>
+            <p class="text-slate-400 mt-2 text-sm sm:text-base max-w-xl mx-auto">Handpicked developer tools, cloud platforms, and micro-SaaS essentials to scale your next build faster.</p>
+        </div>
+    </header>
+
+    <!-- Main Content & Search App -->
+    <main class="max-w-4xl mx-auto px-4 py-8 flex-grow w-full" x-data="{ search: '', category: 'All' }">
+        
+        <!-- Search and Filter Bar -->
+        <div class="flex flex-col sm:flex-row gap-4 mb-8 justify-between items-center">
+            <div class="w-full sm:w-72">
+                <input type="text" x-model="search" placeholder="Search tools or stacks..." class="w-full bg-slate-900 border border-slate-800 rounded-lg px-4 py-2.5 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition">
+            </div>
+
+            <!-- Expanded Category Filters -->
+            <div class="flex flex-wrap gap-2 w-full sm:w-auto justify-start sm:justify-end">
+                <template x-for="cat in ['All', 'Hosting', 'AI & Data', 'Utilities', 'Development']">
+                    <button @click="category = cat" 
+                            :class="category === cat ? 'bg-indigo-600 text-white border-indigo-500' : 'bg-slate-900 text-slate-400 border-slate-800 hover:text-slate-200'"
+                            class="text-xs font-medium px-3 py-2 rounded-lg border transition" 
+                            x-text="cat">
+                    </button>
+                </template>
+            </div>
+        </div>
+
+        <!-- Featured Banner / Top Pick -->
+        <div class="mb-6 bg-gradient-to-r from-indigo-950/60 to-slate-900 border border-indigo-500/30 rounded-2xl p-6 relative overflow-hidden"
+             x-show="'Netlify Cloud Hosting deployment static frontend'.toLowerCase().includes(search.toLowerCase()) || search === ''">
+            <div class="absolute top-3 right-3 bg-indigo-600 text-white text-[10px] uppercase font-bold px-2.5 py-1 rounded-full tracking-wider">Featured Pick</div>
+            <span class="text-xs text-indigo-400 font-semibold uppercase tracking-wider">Hosting & Deployment</span>
+            <h2 class="text-xl font-bold text-white mt-1">Netlify Cloud Platform</h2>
+            <p class="text-slate-300 text-sm mt-2 max-w-xl">Deploy high-performance frontend web apps instantly with automated CI/CD and global CDN delivery.</p>
+            <div class="mt-4">
+                <a href="#" target="_blank" class="inline-block bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold px-5 py-2.5 rounded-xl transition shadow-lg shadow-indigo-600/20">Claim Free Tier &rarr;</a>
+            </div>
+        </div>
+
+        <!-- Resource Cards Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            
+            <!-- Tool Item: Google AI Studio -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition"
+                 x-show="('Google AI Studio Gemini LLM API development'.toLowerCase().includes(search.toLowerCase()) || search === '') && (category === 'All' || category === 'AI & Data')">
+                <div>
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg text-white">Google AI Studio</h3>
+                        <span class="text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/20 px-2 py-0.5 rounded font-medium">AI & Data</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">Prototyping environment for developers to experiment with Gemini models and generate powerful app logic.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">API Free Tiers</span>
+                    <a href="#" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">Get Access &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Tool Item: Spck Editor -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition"
+                 x-show="('Spck Editor Android Code IDE mobile'.toLowerCase().includes(search.toLowerCase()) || search === '') && (category === 'All' || category === 'Utilities')">
+                <div>
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg text-white">Spck Editor</h3>
+                        <span class="text-[10px] bg-blue-500/10 text-blue-400 border border-blue-500/20 px-2 py-0.5 rounded font-medium">Utilities</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">A fully-featured mobile code editor with Git integration designed to write and manage web code directly from a phone.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">Mobile First</span>
+                    <a href="#" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">Get Access &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Tool Item: Tailwind CSS -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition"
+                 x-show="('Tailwind CSS styling design framework'.toLowerCase().includes(search.toLowerCase()) || search === '') && (category === 'All' || category === 'Development')">
+                <div>
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg text-white">Tailwind CSS</h3>
+                        <span class="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded font-medium">Development</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">A utility-first CSS framework packed with classes to rapidly build custom, modern user interfaces without leaving HTML.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">UI Framework</span>
+                    <a href="#" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">Get Access &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Tool Item: Node.js -->
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 flex flex-col justify-between hover:border-slate-700 transition"
+                 x-show="('Node.js backend javascript runtime server'.toLowerCase().includes(search.toLowerCase()) || search === '') && (category === 'All' || category === 'Development')">
+                <div>
+                    <div class="flex justify-between items-start">
+                        <h3 class="font-bold text-lg text-white">Node.js</h3>
+                        <span class="text-[10px] bg-cyan-500/10 text-cyan-400 border border-cyan-500/20 px-2 py-0.5 rounded font-medium">Development</span>
+                    </div>
+                    <p class="text-slate-400 text-sm mt-2">JavaScript runtime built on Chrome's V8 engine, enabling fast scalable backend services and tooling scripts.</p>
+                </div>
+                <div class="mt-6 pt-4 border-t border-slate-800/80 flex justify-between items-center">
+                    <span class="text-xs text-slate-500">Backend Runtime</span>
+                    <a href="#" target="_blank" class="bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">Get Access &rarr;</a>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 border-t border-slate-800 py-6 text-center text-xs text-slate-500 mt-12">
+        <p>&copy; 2026 DevStack Hub. Built for fast performance and conversions.</p>
+    </footer>
+
+</body>
+</html>
