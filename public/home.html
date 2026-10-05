@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Discover Live Streams & Rooms</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-[#0f0f13] min-h-screen text-slate-100 font-sans pb-24">
+
+    <!-- Top Header -->
+    <header class="bg-[#1a1a24] sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-slate-800 shadow-md">
+        <div class="flex items-center gap-2">
+            <span class="text-base font-black tracking-wider bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] bg-clip-text text-transparent">Let's Live</span>
+        </div>
+        <div class="flex items-center gap-3">
+            <a href="wallet.html" class="bg-pink-500/10 border border-pink-500/20 text-pink-400 text-xs px-3 py-1.5 rounded-full font-bold flex items-center gap-1">
+                <span>💎</span> Wallet
+            </a>
+        </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <div class="p-4 max-w-md mx-auto space-y-4">
+        
+        <!-- Category Filter Tabs (Nearby, Gaming, PK, Audio Room, Trending) -->
+        <div class="flex overflow-x-auto space-x-2 no-scrollbar py-1">
+            <button onclick="switchHomeTab('trending')" id="tab-trending" class="px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white whitespace-nowrap shadow-md transition-all">Trending</button>
+            <button onclick="switchHomeTab('nearby')" id="tab-nearby" class="px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all">Nearby 📍</button>
+            <button onclick="switchHomeTab('gaming')" id="tab-gaming" class="px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all">Gaming 🎮</button>
+            <button onclick="switchHomeTab('pk')" id="tab-pk" class="px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all">PK Battles ⚔️</button>
+            <button onclick="switchHomeTab('audioroom')" id="tab-audioroom" class="px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all">Audio Room 🎙️</button>
+        </div>
+
+        <!-- Dynamic Content Display Section -->
+        <div id="content-container" class="grid grid-cols-2 gap-3 pt-2">
+            <!-- Stream Card 1 -->
+            <a href="room.html" class="bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 group hover:border-[#ff2a5f] transition-all">
+                <div class="relative h-40 bg-slate-800 flex items-center justify-center">
+                    <span class="absolute top-2 left-2 bg-[#ff2a5f] text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider">LIVE</span>
+                    <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 1.2k</span>
+                    <span class="text-3xl">🎥</span>
+                    <div class="absolute bottom-2 left-2 text-[11px] font-semibold text-white drop-shadow">Priya Live Show</div>
+                </div>
+                <div class="p-2.5 flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-[#7928ca] to-[#ff2a5f] flex items-center justify-center text-xs font-bold text-white">P</div>
+                    <div>
+                        <h6 class="text-xs font-bold text-white truncate">Priya Sharma</h6>
+                        <p class="text-[10px] text-slate-400 truncate">Music & Chill 🎵</p>
+                    </div>
+                </div>
+            </a>
+
+            <!-- Stream Card 2 -->
+            <a href="room.html" class="bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 group hover:border-[#ff2a5f] transition-all">
+                <div class="relative h-40 bg-slate-800 flex items-center justify-center">
+                    <span class="absolute top-2 left-2 bg-[#ff2a5f] text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider">PK BATTLE</span>
+                    <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 3.4k</span>
+                    <span class="text-3xl">⚔️</span>
+                    <div class="absolute bottom-2 left-2 text-[11px] font-semibold text-white drop-shadow">Arena Championship</div>
+                </div>
+                <div class="p-2.5 flex items-center gap-2">
+                    <div class="w-7 h-7 rounded-full bg-gradient-to-tr from-purple-600 to-indigo-600 flex items-center justify-center text-xs font-bold text-white">R</div>
+                    <div>
+                        <h6 class="text-xs font-bold text-white truncate">Rohit Official</h6>
+                        <p class="text-[10px] text-slate-400 truncate">Clash of Titans</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+
+    <!-- Bottom Navigation Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
+        <a href="home.html" class="text-pink-500 font-bold flex flex-col items-center gap-0.5"><span>🏠</span> Home</a>
+        <a href="home.html" class="flex flex-col items-center gap-0.5"><span>🔍</span> Explore</a>
+        <a href="room.html" class="flex flex-col items-center gap-0.5"><span>💬</span> Messages</a>
+        <a href="profile.html" class="flex flex-col items-center gap-0.5"><span>👤</span> Profile</a>
+    </nav>
+
+    <!-- Interactive Scripts -->
+    <script>
+        window.switchHomeTab = function(category) {
+            // Reset all tab styles
+            const tabs = ['trending', 'nearby', 'gaming', 'pk', 'audioroom'];
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                if (btn) {
+                    btn.className = "px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all";
+                }
+            });
+
+            // Activate selected tab
+            const activeBtn = document.getElementById(`tab-${category}`);
+            if (activeBtn) {
+                activeBtn.className = "px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white whitespace-nowrap shadow-md transition-all";
+            }
+
+            // Update content based on category selection
+            const container = document.getElementById('content-container');
+            if (category === 'audioroom') {
+                container.innerHTML = `
+                    <div class="col-span-2 bg-[#1a1a24] p-4 rounded-2xl border border-slate-800 text-center space-y-2">
+                        <span class="text-3xl">🎙️</span>
+                        <h5 class="text-sm font-bold text-white">Live Audio Lounge</h5>
+                        <p class="text-xs text-slate-400">Join multi-host voice chats and speak with creators.</p>
+                        <a href="room.html" class="inline-block mt-2 bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Join Audio Room</a>
+                    </div>
+                `;
+            } else if (category === 'gaming') {
+                container.innerHTML = `
+                    <div class="col-span-2 bg-[#1a1a24] p-4 rounded-2xl border border-slate-800 text-center space-y-2">
+                        <span class="text-3xl">🎮</span>
+                        <h5 class="text-sm font-bold text-white">Live Gaming Streams</h5>
+                        <p class="text-xs text-slate-400">Watch top mobile and PC tournament broadcasts.</p>
+                        <a href="room.html" class="inline-block mt-2 bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Watch Game Stream</a>
+                    </div>
+                `;
+            } else {
+                container.innerHTML = `
+                    <a href="room.html" class="bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 group hover:border-[#ff2a5f] transition-all">
+                        <div class="relative h-40 bg-slate-800 flex items-center justify-center">
+                            <span class="absolute top-2 left-2 bg-[#ff2a5f] text-white text-[9px] font-black px-2 py-0.5 rounded uppercase tracking-wider">${category.toUpperCase()}</span>
+                            <span class="text-3xl">✨</span>
+                        </div>
+                        <div class="p-2.5">
+                            <h6 class="text-xs font-bold text-white truncate">Featured ${category} Room</h6>
+                            <p class="text-[10px] text-slate-400">Tap to join stream</p>
+                        </div>
+                    </a>
+                `;
+            }
+        };
+    </script>
+</body>
+</html>

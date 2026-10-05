@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Live Room</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg h-screen text-slate-100 font-sans flex flex-col justify-between overflow-hidden relative">
+
+    <!-- Background Video Stream Simulation -->
+    <div class="absolute inset-0 bg-slate-950 flex items-center justify-center text-slate-600 font-bold text-sm z-0">
+        [Live Video / Broadcaster Feed Stream Simulation]
+    </div>
+
+    <!-- Top Overlay Header (Host Info & Viewers) -->
+    <header class="relative z-10 p-4 flex items-center justify-between bg-gradient-to-b from-black/80 to-transparent">
+        <div class="flex items-center gap-2 bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10">
+            <div class="w-8 h-8 bg-gradient-to-r from-livePurple to-livePink rounded-full flex items-center justify-center font-bold text-xs">A</div>
+            <div>
+                <h4 class="font-bold text-xs text-white leading-tight">Ananya_Live</h4>
+                <p class="text-[10px] text-pink-400 font-semibold">ID: 884920</p>
+            </div>
+            <button onclick="alert('Successfully Followed Host!')" class="ml-2 bg-livePink hover:bg-pink-600 text-white text-[10px] font-bold px-3 py-1 rounded-full transition-all">Follow</button>
+        </div>
+
+        <div class="flex items-center gap-2">
+            <div class="bg-black/40 backdrop-blur-md px-3 py-1.5 rounded-full border border-white/10 text-xs font-semibold flex items-center gap-1">
+                <span>👁️</span> 1.4K
+            </div>
+            <a href="home.html" class="bg-black/40 hover:bg-black/60 backdrop-blur-md w-8 h-8 rounded-full border border-white/10 flex items-center justify-center text-xs font-bold text-white">✕</a>
+        </div>
+    </header>
+
+    <!-- Multi-Guest Video Boxes Grid (Floating on right side) -->
+    <div class="absolute top-20 right-4 z-10 flex flex-col gap-2">
+        <div class="w-16 h-20 bg-black/60 backdrop-blur-md rounded-lg border border-white/20 flex items-center justify-center text-[10px] text-slate-400">
+            [Guest 1]
+        </div>
+        <div class="w-16 h-20 bg-black/60 backdrop-blur-md rounded-lg border border-white/20 flex items-center justify-center text-[10px] text-slate-400">
+            [Guest 2]
+        </div>
+    </div>
+
+    <!-- Center / Bottom Content Overlay (Chat Feed & Gifting) -->
+    <div class="relative z-10 p-4 space-y-3 bg-gradient-to-t from-black/90 via-black/50 to-transparent flex flex-col justify-end">
+        
+        <!-- Live Chat Messages Scroll Area -->
+        <div class="max-h-48 overflow-y-auto space-y-2 pr-4 scrollbar-none flex flex-col justify-end">
+            <div class="bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs max-w-xs border border-white/5">
+                <span class="font-bold text-pink-400">Rahul_Pro:</span> Welcome to the stream! Amazing voice 🎵
+            </div>
+            <div class="bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs max-w-xs border border-white/5">
+                <span class="font-bold text-purple-400">Priya_Official:</span> Sent a <span class="text-yellow-400 font-bold">Sports Car 🏎️</span>!
+            </div>
+            <div class="bg-black/30 backdrop-blur-sm px-3 py-1.5 rounded-lg text-xs max-w-xs border border-white/5">
+                <span class="font-bold text-blue-400">Vikas_Gamer:</span> Hello everyone!
+            </div>
+        </div>
+
+        <!-- Bottom Actions Bar (Chat Input, Gifting, and Likes) -->
+        <div class="flex items-center gap-2 pt-2">
+            <input type="text" placeholder="Say something nice..." class="flex-1 bg-black/40 backdrop-blur-md border border-white/20 rounded-full px-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-livePink text-white placeholder-slate-400">
+            
+            <!-- Send Gift Button -->
+            <button onclick="alert('Opening Virtual Gift Tray: Send Diamonds, Roses, Sports Cars, and Castles!')" class="bg-gradient-to-r from-yellow-500 to-amber-600 hover:opacity-90 text-white text-xs font-bold px-4 py-2.5 rounded-full shadow-lg transition-all flex items-center gap-1">
+                <span>🎁</span> Gift
+            </button>
+
+            <!-- Heart / Like Button -->
+            <button onclick="alert('❤️ Liked stream!')" class="bg-black/40 hover:bg-black/60 backdrop-blur-md border border-white/20 w-10 h-10 rounded-full flex items-center justify-center text-livePink text-base transition-all">
+                ❤️
+            </button>
+        </div>
+
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Login & Signup</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-darkBg min-h-screen flex items-center justify-center p-4 text-slate-100 font-sans">
+
+    <!-- Main Container Card -->
+    <div class="w-full max-w-md bg-cardBg rounded-2xl shadow-2xl overflow-hidden border border-slate-800">
+        
+        <!-- Stylish Brand Banner -->
+        <div class="bg-gradient-to-r from-livePurple to-livePink p-6 text-center">
+            <h1 class="text-3xl font-extxl tracking-wider uppercase text-white font-black">Let's Live</h1>
+            <p class="text-pink-100 text-xs mt-1 font-medium tracking-wide">Stream. Connect. Earn.</p>
+        </div>
+
+        <!-- Auth Tabs (Login / Signup) -->
+        <div class="flex border-b border-slate-800 bg-[#14141c]">
+            <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm">Login</button>
+            <button onclick="switchTab('signup')" id="tab-signup" class="flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm">Sign Up</button>
+        </div>
+
+        <!-- Form Area -->
+        <div class="p-6">
+            
+            <!-- Login Form -->
+            <form id="form-login" onsubmit="handleAuth(event, 'home.html')" class="space-y-4">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
+                    <input type="text" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Password / OTP</label>
+                    <input type="password" required placeholder="Enter password or OTP" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-livePurple to-livePink hover:opacity-90 text-white font-bold py-3 rounded-lg shadow-lg transition-all text-sm uppercase tracking-wider">
+                    Log In
+                </button>
+            </form>
+
+            <!-- Signup Form (Hidden by default) -->
+            <form id="form-signup" onsubmit="handleAuth(event, 'home.html')" class="space-y-4 hidden">
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Full Name</label>
+                    <input type="text" required placeholder="Enter your nickname" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                </div>
+                <div>
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
+                    <input type="text" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                </div>
+                <div class="flex gap-2">
+                    <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <button type="button" onclick="alert('OTP sent successfully!')" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-lg transition-all">Send OTP</button>
+                </div>
+                <button type="submit" class="w-full bg-gradient-to-r from-livePurple to-livePink hover:opacity-90 text-white font-bold py-3 rounded-lg shadow-lg transition-all text-sm uppercase tracking-wider">
+                    Verify & Register
+                </button>
+            </form>
+
+        </div>
+    </div>
+
+    <!-- Script to handle tab toggling & routing -->
+    <script>
+        function switchTab(tab) {
+            const loginForm = document.getElementById('form-login');
+            const signupForm = document.getElementById('form-signup');
+            const loginTab = document.getElementById('tab-login');
+            const signupTab = document.getElementById('tab-signup');
+
+            if (tab === 'login') {
+                loginForm.classList.remove('hidden');
+                signupForm.classList.add('hidden');
+                loginTab.className = "flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm";
+                signupTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
+            } else {
+                signupForm.classList.remove('hidden');
+                loginForm.classList.add('hidden');
+                signupTab.className = "flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm";
+                loginTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
+            }
+        }
+
+        function handleAuth(event, targetPage) {
+            event.preventDefault();
+            // Routes to Phase 2 (home.html) upon successful verification
+            window.location.href = targetPage;
+        }
+    </script>
+</body>
+</html>
