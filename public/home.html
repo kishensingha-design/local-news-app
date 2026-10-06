@@ -38,7 +38,7 @@
     <!-- Main Content Area -->
     <div class="p-4 max-w-md mx-auto space-y-4">
         
-        <!-- Category Filter Tabs (Nearby, Gaming, PK, Audio Room, Trending) -->
+        <!-- Category Filter Tabs -->
         <div class="flex overflow-x-auto space-x-2 no-scrollbar py-1">
             <button onclick="switchHomeTab('trending')" id="tab-trending" class="px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white whitespace-nowrap shadow-md transition-all">Trending</button>
             <button onclick="switchHomeTab('nearby')" id="tab-nearby" class="px-4 py-1.5 text-xs font-medium rounded-full bg-[#1a1a24] border border-slate-800 text-slate-400 hover:text-white whitespace-nowrap transition-all">Nearby 📍</button>
@@ -86,18 +86,17 @@
 
     </div>
 
-    <!-- Bottom Navigation Bar -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
+    <!-- Bottom Navigation Bar (Bulletproof routing to message.html) -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2.5 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
         <a href="home.html" class="text-pink-500 font-bold flex flex-col items-center gap-0.5"><span>🏠</span> Home</a>
         <a href="home.html" class="flex flex-col items-center gap-0.5"><span>🔍</span> Explore</a>
-        <a href="room.html" class="flex flex-col items-center gap-0.5"><span>💬</span> Messages</a>
-        <a href="profile.html" class="flex flex-col items-center gap-0.5"><span>👤</span> Profile</a>
+        <a href="message.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>💬</span> Messages</a>
+        <a href="profile.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>👤</span> Profile</a>
     </nav>
 
     <!-- Interactive Scripts -->
     <script>
         window.switchHomeTab = function(category) {
-            // Reset all tab styles
             const tabs = ['trending', 'nearby', 'gaming', 'pk', 'audioroom'];
             tabs.forEach(t => {
                 const btn = document.getElementById(`tab-${t}`);
@@ -106,14 +105,14 @@
                 }
             });
 
-            // Activate selected tab
             const activeBtn = document.getElementById(`tab-${category}`);
             if (activeBtn) {
                 activeBtn.className = "px-4 py-1.5 text-xs font-bold rounded-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white whitespace-nowrap shadow-md transition-all";
             }
 
-            // Update content based on category selection
             const container = document.getElementById('content-container');
+            if (!container) return;
+
             if (category === 'audioroom') {
                 container.innerHTML = `
                     <div class="col-span-2 bg-[#1a1a24] p-4 rounded-2xl border border-slate-800 text-center space-y-2">
@@ -148,5 +147,13 @@
             }
         };
     </script>
+    <!-- Universal Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2.5 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🏠</span> Home</a>
+    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🔍</span> Explore</a>
+    <a href="message.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>💬</span> Messages</a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>👤</span> Profile</a>
+</nav>
+
 </body>
 </html>

@@ -64,11 +64,15 @@
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
-                    <input type="text" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <input type="text" id="signup-contact" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
                 </div>
-                <div class="flex gap-2">
-                    <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
-                    <button type="button" onclick="alert('OTP sent successfully!')" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-lg transition-all">Send OTP</button>
+                <div>
+                    <div class="flex gap-2">
+                        <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                        <button type="button" onclick="sendOTP()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-lg transition-all">Send OTP</button>
+                    </div>
+                    <!-- Status message container replacing alert popups -->
+                    <p id="otp-status" class="text-xs mt-2 font-medium"></p>
                 </div>
                 <button type="submit" class="w-full bg-gradient-to-r from-livePurple to-livePink hover:opacity-90 text-white font-bold py-3 rounded-lg shadow-lg transition-all text-sm uppercase tracking-wider">
                     Verify & Register
@@ -99,11 +103,34 @@
             }
         }
 
+        function sendOTP() {
+            const contactInput = document.getElementById('signup-contact').value.trim();
+            const statusElement = document.getElementById('otp-status');
+
+            if (!contactInput) {
+                statusElement.style.color = '#ff4d4d';
+                statusElement.innerText = "Please enter your email or phone number first.";
+                return;
+            }
+
+            // Clean feedback message inline without browser popups
+            statusElement.style.color = '#00ffcc';
+            statusElement.innerText = "OTP sent successfully!";
+        }
+
         function handleAuth(event, targetPage) {
             event.preventDefault();
             // Routes to Phase 2 (home.html) upon successful verification
             window.location.href = targetPage;
         }
     </script>
+    <!-- Universal Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2.5 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
+    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🏠</span> Home</a>
+    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🔍</span> Explore</a>
+    <a href="message.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>💬</span> Messages</a>
+    <a href="profile.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>👤</span> Profile</a>
+</nav>
+
 </body>
 </html>
