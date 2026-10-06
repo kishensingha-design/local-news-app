@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Gaming & Mini Games</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-[#0f0f13] min-h-screen text-slate-100 font-sans pb-24">
+
+    <!-- Top Header -->
+    <header class="bg-[#1a1a24] sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-slate-800 shadow-md">
+        <a href="home.html" class="text-xs font-bold text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">← Back</a>
+        <span class="text-sm font-black tracking-wider text-white">Gaming & Mini Games 🎮</span>
+        <div></div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="p-4 max-w-md mx-auto space-y-4">
+        
+        <!-- Section Toggle Tabs (Live Streams vs Mini Games) -->
+        <div class="flex bg-[#1a1a24] p-1 rounded-xl border border-slate-800">
+            <button onclick="switchGameTab('streams')" id="tab-streams" class="flex-1 py-2 text-xs font-bold rounded-lg bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white transition-all">Live Streams</button>
+            <button onclick="switchGameTab('arcade')" id="tab-arcade" class="flex-1 py-2 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all">Play Games 🎲</button>
+        </div>
+
+        <!-- Dynamic Content Area -->
+        <div id="game-content-container" class="space-y-3">
+            
+            <!-- Default View: Live Streams -->
+            <a href="room.html" class="block bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 p-3 group hover:border-pink-500 transition-all">
+                <div class="relative h-40 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">
+                    🎮
+                    <span class="absolute top-2 left-2 bg-pink-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase">LIVE</span>
+                    <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 4.5k</span>
+                </div>
+                <h6 class="text-xs font-bold text-white mt-2 group-hover:text-pink-400 transition-all">Pro Tournament Finals - Esports</h6>
+                <p class="text-[10px] text-slate-400">Tap to watch broadcast</p>
+            </a>
+
+            <a href="room.html" class="block bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 p-3 group hover:border-pink-500 transition-all">
+                <div class="relative h-40 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">
+                    🏆
+                    <span class="absolute top-2 left-2 bg-purple-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase">TOURNAMENT</span>
+                    <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 2.1k</span>
+                </div>
+                <h6 class="text-xs font-bold text-white mt-2 group-hover:text-pink-400 transition-all">Mobile Legends Championship</h6>
+                <p class="text-[10px] text-slate-400">Tap to watch broadcast</p>
+            </a>
+
+        </div>
+
+    </div>
+
+    <!-- Game Session Modal (When playing Ludo, UNO, or Horse Racing) -->
+    <div id="game-modal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 hidden flex flex-col justify-between p-4">
+        <div class="flex justify-between items-center bg-[#1a1a24] px-4 py-3 rounded-2xl border border-slate-800">
+            <h4 id="active-game-title" class="text-xs font-bold text-white">Game Room</h4>
+            <button onclick="closeGame()" class="text-xs text-pink-400 font-bold bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">✕ Exit Game</button>
+        </div>
+        
+        <!-- Game Arena Simulator Screen -->
+        <div id="game-arena" class="flex-1 my-4 bg-[#1a1a24] border border-slate-800 rounded-3xl flex flex-col items-center justify-center p-6 text-center space-y-4">
+            <!-- Dynamic game board preview -->
+        </div>
+
+        <div class="text-center pb-2">
+            <p id="game-status-msg" class="text-xs text-pink-400 font-semibold animate-pulse">Waiting for players to join match...</p>
+        </div>
+    </div>
+
+    <!-- Script to manage tabs and mini games -->
+    <script>
+        function switchGameTab(tab) {
+            const streamsBtn = document.getElementById('tab-streams');
+            const arcadeBtn = document.getElementById('tab-arcade');
+            const container = document.getElementById('game-content-container');
+
+            if (tab === 'streams') {
+                streamsBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white transition-all";
+                arcadeBtn.className = "flex-1 py-2 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all";
+                
+                container.innerHTML = `
+                    <a href="room.html" class="block bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 p-3 group hover:border-pink-500 transition-all">
+                        <div class="relative h-40 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">
+                            🎮
+                            <span class="absolute top-2 left-2 bg-pink-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase">LIVE</span>
+                            <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 4.5k</span>
+                        </div>
+                        <h6 class="text-xs font-bold text-white mt-2 group-hover:text-pink-400 transition-all">Pro Tournament Finals - Esports</h6>
+                        <p class="text-[10px] text-slate-400">Tap to watch broadcast</p>
+                    </a>
+                    <a href="room.html" class="block bg-[#1a1a24] rounded-2xl overflow-hidden border border-slate-800 p-3 group hover:border-pink-500 transition-all">
+                        <div class="relative h-40 bg-slate-800 rounded-xl flex items-center justify-center text-3xl">
+                            🏆
+                            <span class="absolute top-2 left-2 bg-purple-600 text-white text-[9px] font-black px-2 py-0.5 rounded uppercase">TOURNAMENT</span>
+                            <span class="absolute top-2 right-2 bg-black/60 backdrop-blur text-slate-200 text-[10px] px-2 py-0.5 rounded-full">👀 2.1k</span>
+                        </div>
+                        <h6 class="text-xs font-bold text-white mt-2 group-hover:text-pink-400 transition-all">Mobile Legends Championship</h6>
+                        <p class="text-[10px] text-slate-400">Tap to watch broadcast</p>
+                    </a>
+                `;
+            } else {
+                arcadeBtn.className = "flex-1 py-2 text-xs font-bold rounded-lg bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] text-white transition-all";
+                streamsBtn.className = "flex-1 py-2 text-xs font-medium rounded-lg text-slate-400 hover:text-white transition-all";
+                
+                container.innerHTML = `
+                    <div class="grid grid-cols-1 gap-3">
+                        <!-- Ludo Game Card -->
+                        <div class="bg-[#1a1a24] border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-red-500/20 border border-red-500/40 rounded-xl flex items-center justify-center text-2xl">🎲</div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-white">Ludo King Live</h5>
+                                    <p class="text-[10px] text-slate-400">Roll dice & race your tokens!</p>
+                                </div>
+                            </div>
+                            <button onclick="launchGame('Ludo', '🎲')" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Play</button>
+                        </div>
+
+                        <!-- UNO Game Card -->
+                        <div class="bg-[#1a1a24] border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-blue-500/20 border border-blue-500/40 rounded-xl flex items-center justify-center text-2xl">🃏</div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-white">UNO Party</h5>
+                                    <p class="text-[10px] text-slate-400">Match colors & numbers!</p>
+                                </div>
+                            </div>
+                            <button onclick="launchGame('UNO', '🃏')" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Play</button>
+                        </div>
+
+                        <!-- Horse Racing Game Card -->
+                        <div class="bg-[#1a1a24] border border-slate-800 rounded-2xl p-4 flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <div class="w-12 h-12 bg-amber-500/20 border border-amber-500/40 rounded-xl flex items-center justify-center text-2xl">🐎</div>
+                                <div>
+                                    <h5 class="text-xs font-bold text-white">Derby Horse Racing</h5>
+                                    <p class="text-[10px] text-slate-400">Pick your winner & race!</p>
+                                </div>
+                            </div>
+                            <button onclick="launchGame('Horse Racing', '🐎')" class="bg-gradient-to-r from-purple-600 to-pink-500 text-white text-xs font-bold px-4 py-2 rounded-xl shadow">Play</button>
+                        </div>
+                    </div>
+                `;
+            }
+        }
+
+        function launchGame(gameName, icon) {
+            document.getElementById('active-game-title').innerText = `${icon} ${gameName} - Live Match`;
+            const arena = document.getElementById('game-arena');
+            
+            if (gameName === 'Ludo') {
+                arena.innerHTML = `
+                    <div class="text-5xl animate-bounce">🎲</div>
+                    <h3 class="text-sm font-bold text-white">Ludo Match Connected</h3>
+                    <p class="text-xs text-slate-400">Your turn to roll the dice!</p>
+                    <button onclick="alert('Dice Rolled: 6! Token moved.')" class="bg-green-600 hover:bg-green-500 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow mt-2">Roll Dice ⚅</button>
+                `;
+            } else if (gameName === 'UNO') {
+                arena.innerHTML = `
+                    <div class="text-5xl animate-pulse">🃏</div>
+                    <h3 class="text-sm font-bold text-white">UNO Table Active</h3>
+                    <p class="text-xs text-slate-400">Current Card: <span class="text-red-400 font-bold">Red 7</span></p>
+                    <button onclick="alert('Card Played successfully!')" class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow mt-2">Play Card 🎴</button>
+                `;
+            } else {
+                arena.innerHTML = `
+                    <div class="text-5xl animate-bounce">🐎</div>
+                    <h3 class="text-sm font-bold text-white">Derby Race in Progress</h3>
+                    <p class="text-xs text-slate-400">Thunder Bolt is leading the track!</p>
+                    <button onclick="alert('Boost activated for your horse!')" class="bg-amber-600 hover:bg-amber-500 text-white text-xs font-bold px-6 py-2.5 rounded-xl shadow mt-2">Boost Speed ⚡</button>
+                `;
+            }
+
+            document.getElementById('game-modal').classList.remove('hidden');
+        }
+
+        function closeGame() {
+            document.getElementById('game-modal').classList.add('hidden');
+        }
+    </script>
+</body>
+</html>
