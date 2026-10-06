@@ -18,23 +18,23 @@
                     }
                 }
             }
-        }
+        };
     </script>
 </head>
-<body class="bg-darkBg min-h-screen flex items-center justify-center p-4 text-slate-100 font-sans">
+<body class="bg-[#0f0f13] min-h-screen flex items-center justify-center p-4 text-slate-100 font-sans">
 
     <!-- Main Container Card -->
-    <div class="w-full max-w-md bg-cardBg rounded-2xl shadow-2xl overflow-hidden border border-slate-800">
+    <div class="w-full max-w-md bg-[#1a1a24] rounded-2xl shadow-2xl overflow-hidden border border-slate-800">
         
         <!-- Stylish Brand Banner -->
-        <div class="bg-gradient-to-r from-livePurple to-livePink p-6 text-center">
-            <h1 class="text-3xl font-extxl tracking-wider uppercase text-white font-black">Let's Live</h1>
+        <div class="bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] p-6 text-center">
+            <h1 class="text-3xl tracking-wider uppercase text-white font-black">Let's Live</h1>
             <p class="text-pink-100 text-xs mt-1 font-medium tracking-wide">Stream. Connect. Earn.</p>
         </div>
 
         <!-- Auth Tabs (Login / Signup) -->
         <div class="flex border-b border-slate-800 bg-[#14141c]">
-            <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm">Login</button>
+            <button onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm">Login</button>
             <button onclick="switchTab('signup')" id="tab-signup" class="flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm">Sign Up</button>
         </div>
 
@@ -45,13 +45,13 @@
             <form id="form-login" onsubmit="handleAuth(event, 'home.html')" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
-                    <input type="text" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <input type="text" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Password / OTP</label>
-                    <input type="password" required placeholder="Enter password or OTP" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <input type="password" required placeholder="Enter password or OTP" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-livePurple to-livePink hover:opacity-90 text-white font-bold py-3 rounded-lg shadow-lg transition-all text-sm uppercase tracking-wider">
+                <button type="submit" class="w-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider">
                     Log In
                 </button>
             </form>
@@ -60,21 +60,21 @@
             <form id="form-signup" onsubmit="handleAuth(event, 'home.html')" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Full Name</label>
-                    <input type="text" required placeholder="Enter your nickname" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <input type="text" required placeholder="Enter your nickname" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
-                    <input type="text" id="signup-contact" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
+                    <input type="text" id="signup-contact" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
                 <div>
                     <div class="flex gap-2">
-                        <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-lg focus:outline-none focus:ring-2 focus:ring-livePink text-sm text-white">
-                        <button type="button" onclick="sendOTP()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-lg transition-all">Send OTP</button>
+                        <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
+                        <button type="button" onclick="sendOTP()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-xl transition-all border border-slate-700">Send OTP</button>
                     </div>
-                    <!-- Status message container replacing alert popups -->
+                    <!-- Inline status message -->
                     <p id="otp-status" class="text-xs mt-2 font-medium"></p>
                 </div>
-                <button type="submit" class="w-full bg-gradient-to-r from-livePurple to-livePink hover:opacity-90 text-white font-bold py-3 rounded-lg shadow-lg transition-all text-sm uppercase tracking-wider">
+                <button type="submit" class="w-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider">
                     Verify & Register
                 </button>
             </form>
@@ -93,12 +93,12 @@
             if (tab === 'login') {
                 loginForm.classList.remove('hidden');
                 signupForm.classList.add('hidden');
-                loginTab.className = "flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm";
+                loginTab.className = "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm";
                 signupTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
             } else {
                 signupForm.classList.remove('hidden');
                 loginForm.classList.add('hidden');
-                signupTab.className = "flex-1 py-3 text-center font-semibold text-livePink border-b-2 border-livePink transition-all text-sm";
+                signupTab.className = "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm";
                 loginTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
             }
         }
@@ -106,31 +106,21 @@
         function sendOTP() {
             const contactInput = document.getElementById('signup-contact').value.trim();
             const statusElement = document.getElementById('otp-status');
-
+            
             if (!contactInput) {
                 statusElement.style.color = '#ff4d4d';
                 statusElement.innerText = "Please enter your email or phone number first.";
                 return;
             }
 
-            // Clean feedback message inline without browser popups
             statusElement.style.color = '#00ffcc';
             statusElement.innerText = "OTP sent successfully!";
         }
 
         function handleAuth(event, targetPage) {
             event.preventDefault();
-            // Routes to Phase 2 (home.html) upon successful verification
             window.location.href = targetPage;
         }
     </script>
-    <!-- Universal Bottom Navigation Bar -->
-<nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-2.5 px-6 flex justify-between items-center z-50 text-xs text-slate-400">
-    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🏠</span> Home</a>
-    <a href="home.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>🔍</span> Explore</a>
-    <a href="message.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>💬</span> Messages</a>
-    <a href="profile.html" class="flex flex-col items-center gap-0.5 hover:text-pink-400 transition-all"><span>👤</span> Profile</a>
-</nav>
-
 </body>
 </html>
