@@ -20,6 +20,13 @@
             }
         };
     </script>
+    <!-- EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+       (function(){
+          emailjs.init("rm3ZVcN_gYtvY5Rsi");
+       })();
+    </script>
 </head>
 <body class="bg-[#0f0f13] min-h-screen flex items-center justify-center p-4 text-slate-100 font-sans">
 
@@ -70,8 +77,8 @@
                     <p id="username-status" class="text-xs mt-1 font-medium"></p>
                 </div>
                 <div>
-                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
-                    <input type="text" id="signup-contact" required placeholder="Enter email or phone" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
+                    <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email Address</label>
+                    <input type="email" id="signup-contact" required placeholder="Enter email for OTP" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Create Password</label>
@@ -79,7 +86,7 @@
                 </div>
                 <div>
                     <div class="flex gap-2">
-                        <input type="text" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
+                        <input type="text" id="signup-otp-input" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                         <button type="button" onclick="sendOTP()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-xl transition-all border border-slate-700">Send OTP</button>
                     </div>
                     <p id="otp-status" class="text-xs mt-1 font-medium"></p>
@@ -95,8 +102,10 @@
         </div>
     </div>
 
-    <!-- Script to handle local authentication and unique username validation -->
+    <!-- Script to handle local authentication and EmailJS OTP -->
     <script>
+        let generatedOTP = "";
+
         function switchTab(tab) {
             const loginForm = document.getElementById('form-login');
             const signupForm = document.getElementById('form-signup');
@@ -124,8 +133,7 @@
 
         function checkUsername() {
             const usernameInput = document.getElementById('signup-username').value.trim();
-            const statusElement = id => document.getElementById(id);
-            const statusP = statusElement('username-status');
+            const statusP = document.getElementById('username-status');
 
             if (!usernameInput) {
                 statusP.style.color = '#ff4d4d';
@@ -137,10 +145,9 @@
             const exists = users.some(u => u.username.toLowerCase() === usernameInput.toLowerCase());
 
             if (exists) {
-                // Suggest an available alternative by appending numbers
                 let suggested = usernameInput + Math.floor(Math.random() * 900 + 100);
                 statusP.style.color = '#ff4d4d';
-                statusP.innerHTML = `Username taken! Try available alternative: <span class="underline cursor-pointer text-pink-400" onclick="document.getElementById('signup-username').value='${suggested}'; checkUsername();">${suggested}</span>`;
+                statusP.innerHTML = `Username taken! Try: <span class="underline cursor-pointer text-pink-400" onclick="document.getElementById('signup-username').value='${suggested}'; checkUsername();">${suggested}</span>`;
                 return false;
             } else {
                 statusP.style.color = '#00ffcc';
@@ -153,14 +160,32 @@
             const contactInput = document.getElementById('signup-contact').value.trim();
             const statusElement = document.getElementById('otp-status');
             
-            if (!contactInput) {
+            if (!contactInput || !contactInput.includes('@')) {
                 statusElement.style.color = '#ff4d4d';
-                statusElement.innerText = "Please enter your email or phone number first.";
+                statusElement.innerText = "Please enter a valid email address first.";
                 return;
             }
 
-            statusElement.style.color = '#00ffcc';
-            statusElement.innerText = "OTP sent successfully!";
+            // Generate a random 6-digit OTP
+            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
+
+            statusElement.style.color = '#cbd5e1';
+            statusElement.innerText = "Sending OTP to email...";
+
+            const templateParams = {
+                to_email: contactInput,
+                otp_code: generatedOTP
+            };
+
+            emailjs.send('service_e270avk', 'template_l9trfuf', templateParams)
+                .then(function(response) {
+                    statusElement.style.color = '#00ffcc';
+                    statusElement.innerText = "OTP sent successfully to your email!";
+                }, function(error) {
+                    statusElement.style.color = '#ff4d4d';
+                    statusElement.innerText = "Failed to send OTP. Check console for details.";
+                    console.error('EmailJS Error:', error);
+                });
         }
 
         function handleSignup(event) {
@@ -168,14 +193,22 @@
             const username = document.getElementById('signup-username').value.trim();
             const contact = document.getElementById('signup-contact').value.trim();
             const password = document.getElementById('signup-password').value.trim();
+            const enteredOTP = document.getElementById('signup-otp-input').value.trim();
             const errorP = document.getElementById('signup-error');
+
+            // Verify OTP match
+            if (enteredOTP !== generatedOTP) {
+                errorP.innerText = "Invalid OTP. Please check the code sent to your email.";
+                errorP.classList.remove('hidden');
+                return;
+            }
 
             let users = getUsers();
 
             // Check if username already exists
             const usernameExists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
             if (usernameExists) {
-                errorP.innerText = "That username is already taken. Please choose another or use the suggested one.";
+                errorP.innerText = "That username is already taken. Please choose another.";
                 errorP.classList.remove('hidden');
                 return;
             }
@@ -183,7 +216,7 @@
             // Check if contact already exists
             const contactExists = users.some(u => u.contact === contact);
             if (contactExists) {
-                errorP.innerText = "This email or phone number is already registered. Please log in.";
+                errorP.innerText = "This email is already registered. Please log in.";
                 errorP.classList.remove('hidden');
                 return;
             }
@@ -205,14 +238,13 @@
 
             let users = getUsers();
 
-            // Find user matching contact and password
             const validUser = users.find(u => u.contact === contact && u.password === password);
 
             if (validUser) {
                 localStorage.setItem('lets_live_current_user', validUser.username);
                 window.location.href = 'home.html';
             } else {
-                errorP.innerText = "Incorrect email/phone or password. Please try again.";
+                errorP.innerText = "Incorrect email or password. Please try again.";
                 errorP.classList.remove('hidden');
             }
         }
