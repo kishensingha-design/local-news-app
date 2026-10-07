@@ -20,6 +20,15 @@
             }
         };
     </script>
+    <!-- Hide Netlify Badge on Free Tier -->
+    <style>
+        iframe#netlify-badge, a[href*="netlify.com/support"], div:has(> a[href*="netlify.com"]) {
+            display: none !important;
+            visibility: hidden !important;
+            opacity: 0 !important;
+            pointer-events: none !important;
+        }
+    </style>
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
