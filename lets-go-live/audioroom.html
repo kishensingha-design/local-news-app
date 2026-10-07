@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Audio Lounge</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        };
+    </script>
+    <style>
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0) scale(0.6);
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(-120px) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(-250px) scale(1);
+                opacity: 0;
+            }
+        }
+        .floating-heart {
+            position: absolute;
+            animation: floatUp 1.8s ease-out forwards;
+            pointer-events: none;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body class="bg-[#0f0f13] min-h-screen text-slate-100 font-sans pb-28 flex flex-col justify-between overflow-x-hidden">
+
+    <!-- Top Header -->
+    <header class="bg-[#1a1a24] sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-slate-800 shadow-md">
+        <a href="home.html" class="text-xs font-bold text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">← Leave</a>
+        <div class="text-center">
+            <h1 class="text-xs font-black tracking-wider text-white">🎙️ Live Audio Lounge</h1>
+            <p class="text-[10px] text-slate-400">👀 485 Listening</p>
+        </div>
+        <div class="text-xs font-bold text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">💎 1,240</div>
+    </header>
+
+    <!-- Audio Stage Grid (Speakers & Hosts) -->
+    <div class="p-4 max-w-md mx-auto w-full space-y-6 flex-1">
+        
+        <!-- Room Info Banner -->
+        <div class="bg-[#1a1a24] border border-slate-800 p-4 rounded-2xl text-center space-y-1">
+            <h3 class="text-sm font-bold text-white">Late Night Chill & Talk 🎵</h3>
+            <p class="text-xs text-slate-400">Welcome everyone! Drop a gift for your favorite speaker.</p>
+        </div>
+
+        <!-- Seats Grid (9 Audio Seats) -->
+        <div class="grid grid-cols-3 gap-4 text-center">
+            
+            <!-- Seat 1 (Host) -->
+            <div class="space-y-1">
+                <div class="relative w-16 h-16 mx-auto rounded-full bg-gradient-to-tr from-purple-600 to-pink-500 p-0.5 shadow-lg flex items-center justify-center">
+                    <div class="w-full h-full bg-[#1a1a24] rounded-full flex items-center justify-center text-2xl">👑</div>
+                    <span class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-[#0f0f13] rounded-full"></span>
+                </div>
+                <p class="text-xs font-bold text-white truncate">Priya (Host)</p>
+                <button onclick="openGiftModal('Priya')" class="text-[10px] bg-pink-500/20 text-pink-400 border border-pink-500/30 px-2 py-0.5 rounded-full font-bold">🎁 Gift</button>
+            </div>
+
+            <!-- Seat 2 (Co-Host) -->
+            <div class="space-y-1">
+                <div class="relative w-16 h-16 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl">
+                    👨‍🎤
+                    <span class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-[#0f0f13] rounded-full"></span>
+                </div>
+                <p class="text-xs font-bold text-white truncate">Rohit</p>
+                <button onclick="openGiftModal('Rohit')" class="text-[10px] bg-pink-500/20 text-pink-400 border border-pink-500/30 px-2 py-0.5 rounded-full font-bold">🎁 Gift</button>
+            </div>
+
+            <!-- Seat 3 (Speaker) -->
+            <div class="space-y-1">
+                <div class="relative w-16 h-16 mx-auto rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-2xl">
+                    👩‍💻
+                    <span class="absolute bottom-0 right-0 w-4 h-4 bg-green-500 border-2 border-[#0f0f13] rounded-full"></span>
+                </div>
+                <p class="text-xs font-bold text-white truncate">Ananya</p>
+                <button onclick="openGiftModal('Ananya')" class="text-[10px] bg-pink-500/20 text-pink-400 border border-pink-500/30 px-2 py-0.5 rounded-full font-bold">🎁 Gift</button>
+            </div>
+
+            <!-- Seat 4 (Empty) -->
+            <div class="space-y-1">
+                <div class="w-16 h-16 mx-auto rounded-full bg-[#16161f] border border-dashed border-slate-700 flex items-center justify-center text-slate-500 text-lg">+</div>
+                <p class="text-[10px] text-slate-500">Empty Seat</p>
+            </div>
+
+            <!-- Seat 5 (Empty) -->
+            <div class="space-y-1">
+                <div class="w-16 h-16 mx-auto rounded-full bg-[#16161f] border border-dashed border-slate-700 flex items-center justify-center text-slate-500 text-lg">+</div>
+                <p class="text-[10px] text-slate-500">Empty Seat</p>
+            </div>
+
+            <!-- Seat 6 (Empty) -->
+            <div class="space-y-1">
+                <div class="w-16 h-16 mx-auto rounded-full bg-[#16161f] border border-dashed border-slate-700 flex items-center justify-center text-slate-500 text-lg">+</div>
+                <p class="text-[10px] text-slate-500">Empty Seat</p>
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Floating Heart Animation Container -->
+    <div id="heart-container" class="fixed bottom-24 right-8 w-20 h-48 pointer-events-none z-40 overflow-visible"></div>
+
+    <!-- Floating Status Toast Notification -->
+    <div id="toast-notification" class="fixed top-16 left-1/2 transform -translate-x-1/2 bg-[#1a1a24] border border-slate-700 text-white text-xs px-4 py-2 rounded-xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none z-50">
+        Notification
+    </div>
+
+    <!-- Bottom Audio Control Bar -->
+    <nav class="fixed bottom-0 left-0 right-0 bg-[#1a1a24] border-t border-slate-800 py-3 px-6 flex justify-around items-center z-40">
+        <!-- Mute / Unmute Button -->
+        <button onclick="toggleMute()" id="mute-btn" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white transition-all text-xs font-semibold">
+            <span id="mute-icon" class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-base">🎤</span>
+            <span id="mute-text">Mute</span>
+        </button>
+        <!-- Emoji Reaction Button (Triggers Floating Hearts) -->
+        <button onclick="spawnHeart()" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white transition-all text-xs font-semibold">
+            <span class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-base">❤️</span>
+            <span>Like</span>
+        </button>
+        <!-- Request Mic Seat -->
+        <button onclick="showToast('Hand raised! Waiting for host approval.')" class="flex flex-col items-center gap-1 text-slate-300 hover:text-white transition-all text-xs font-semibold">
+            <span class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-base">✋</span>
+            <span>Take Mic</span>
+        </button>
+    </nav>
+
+    <!-- Gift Modal (Hidden by default) -->
+    <div id="gift-modal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-end justify-center">
+        <div class="bg-[#1a1a24] border-t border-slate-800 w-full max-w-md rounded-t-3xl p-5 space-y-4 animate-in fade-in slide-in-from-bottom duration-200">
+            <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+                <h4 class="text-sm font-bold text-white">Send Gift to <span id="target-host-name" class="text-pink-400">Host</span></h4>
+                <button onclick="closeGiftModal()" class="text-slate-400 hover:text-white font-bold text-sm">✕</button>
+            </div>
+            <!-- Gift items grid -->
+            <div class="grid grid-cols-3 gap-3">
+                <button onclick="sendGift('Rose 🌹', 10)" class="bg-[#111117] border border-slate-700 hover:border-pink-500 p-3 rounded-xl text-center transition-all">
+                    <span class="text-2xl">🌹</span>
+                    <p class="text-xs font-bold text-white mt-1">Rose</p>
+                    <p class="text-[10px] text-pink-400 font-semibold">💎 10</p>
+                </button>
+                <button onclick="sendGift('Diamond 💎', 50)" class="bg-[#111117] border border-slate-700 hover:border-pink-500 p-3 rounded-xl text-center transition-all">
+                    <span class="text-2xl">💎</span>
+                    <p class="text-xs font-bold text-white mt-1">Diamond</p>
+                    <p class="text-[10px] text-pink-400 font-semibold">💎 50</p>
+                </button>
+                <button onclick="sendGift('Sports Car 🏎', 500)" class="bg-[#111117] border border-slate-700 hover:border-pink-500 p-3 rounded-xl text-center transition-all">
+                    <span class="text-2xl">🏎️</span>
+                    <p class="text-xs font-bold text-white mt-1">Super Car</p>
+                    <p class="text-[10px] text-pink-400 font-semibold">💎 500</p>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts for Audio Actions, Gifting & Floating Hearts -->
+    <script>
+        let isMuted = false;
+        let selectedHost = '';
+
+        function toggleMute() {
+            isMuted = !isMuted;
+            const muteIcon = document.getElementById('mute-icon');
+            const muteText = document.getElementById('mute-text');
+
+            if (isMuted) {
+                muteIcon.innerText = "🔇";
+                muteIcon.className = "w-10 h-10 rounded-full bg-red-500/20 border border-red-500/40 text-red-400 flex items-center justify-center text-base";
+                muteText.innerText = "Unmute";
+                showToast("Audio muted successfully");
+            } else {
+                muteIcon.innerText = "🎤";
+                muteIcon.className = "w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-base";
+                muteText.innerText = "Mute";
+                showToast("Audio unmuted successfully");
+            }
+        }
+
+        function spawnHeart() {
+            const container = document.getElementById('heart-container');
+            const heart = document.createElement('div');
+            heart.className = 'floating-heart';
+            
+            // Randomize heart emojis and horizontal spread slightly
+            const hearts = ['❤️', '💖', '💗', '💓', '✨'];
+            heart.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+            
+            const randomX = Math.random() * 30 - 15; // slight horizontal drift
+            heart.style.left = randomX + 'px';
+            
+            container.appendChild(heart);
+
+            // Remove heart element from DOM after animation completes
+            setTimeout(() => {
+                heart.remove();
+            }, 1800);
+        }
+
+        function openGiftModal(hostname) {
+            selectedHost = hostname;
+            document.getElementById('target-host-name').innerText = hostname;
+            document.getElementById('gift-modal').classList.remove('hidden');
+        }
+
+        function closeGiftModal() {
+            document.getElementById('gift-modal').classList.add('hidden');
+        }
+
+        function sendGift(giftName, cost) {
+            closeGiftModal();
+            showToast(`🎁 You sent a ${giftName} to ${selectedHost}!`);
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast-notification');
+            toast.innerText = message;
+            toast.style.opacity = '1';
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 2500);
+        }
+    </script>
+</body>
+</html>

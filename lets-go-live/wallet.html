@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Let's Live - Wallet & Top-Up</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        livePink: '#ff2a5f',
+                        livePurple: '#7928ca',
+                        darkBg: '#0f0f13',
+                        cardBg: '#1a1a24'
+                    }
+                }
+            }
+        };
+    </script>
+</head>
+<body class="bg-[#0f0f13] min-h-screen text-slate-100 font-sans pb-28">
+
+    <!-- Top Header -->
+    <header class="bg-[#1a1a24] sticky top-0 z-50 px-4 py-3 flex items-center justify-between border-b border-slate-800 shadow-md">
+        <a href="home.html" class="text-xs font-bold text-pink-400 bg-pink-500/10 px-3 py-1 rounded-full border border-pink-500/20">← Back</a>
+        <span class="text-sm font-black tracking-wider text-white">My Wallet 💎</span>
+        <div></div>
+    </header>
+
+    <!-- Main Container -->
+    <div class="p-4 max-w-md mx-auto space-y-4">
+        
+        <!-- Balance Card -->
+        <div class="bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] p-6 rounded-3xl shadow-xl text-center space-y-2 relative overflow-hidden">
+            <div class="absolute -right-6 -bottom-6 text-7xl opacity-20">💎</div>
+            <p class="text-xs uppercase tracking-widest text-pink-100 font-semibold">Available Balance</p>
+            <h2 id="wallet-balance" class="text-3xl font-black text-white">1,240 💎</h2>
+            <p class="text-[11px] text-pink-100">Use diamonds to send gifts in live rooms & audio stages!</p>
+        </div>
+
+        <!-- Success Notification Toast -->
+        <div id="wallet-toast" class="bg-[#1a1a24] border border-slate-700 text-white text-xs px-4 py-2.5 rounded-xl text-center shadow-lg transition-all duration-300 opacity-0 pointer-events-none">
+            Notification
+        </div>
+
+        <!-- Top-Up Packages Section Title -->
+        <div class="pt-2">
+            <h3 class="text-xs font-black uppercase tracking-wider text-slate-400">Select Diamond Package</h3>
+        </div>
+
+        <!-- Diamond Listing Packages (49 to 799) -->
+        <div class="grid grid-cols-2 gap-3">
+            
+            <!-- 49 -->
+            <button onclick="topUpDiamonds(50, 49)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">50 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Starter Pack</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹49</span>
+            </button>
+
+            <!-- 99 -->
+            <button onclick="topUpDiamonds(120, 99)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">120 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Popular</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹99</span>
+            </button>
+
+            <!-- 199 -->
+            <button onclick="topUpDiamonds(260, 199)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">260 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Value Pack</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹199</span>
+            </button>
+
+            <!-- 299 -->
+            <button onclick="topUpDiamonds(400, 299)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">400 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Mega Pack</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹299</span>
+            </button>
+
+            <!-- 399 -->
+            <button onclick="topUpDiamonds(550, 399)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">550 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Super Saver</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹399</span>
+            </button>
+
+            <!-- 499 -->
+            <button onclick="topUpDiamonds(720, 499)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">720 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Best Seller</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹499</span>
+            </button>
+
+            <!-- 599 -->
+            <button onclick="topUpDiamonds(900, 599)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">900 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">Elite Pack</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹599</span>
+            </button>
+
+            <!-- 699 -->
+            <button onclick="topUpDiamonds(1100, 699)" class="bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex flex-col items-center justify-between space-y-2 group">
+                <span class="text-2xl">💎</span>
+                <div>
+                    <h5 class="text-xs font-bold text-white group-hover:text-pink-400">1,100 Diamonds</h5>
+                    <p class="text-[10px] text-slate-400">VIP Pack</p>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-3 py-1 rounded-full w-full">₹699</span>
+            </button>
+
+            <!-- 799 (Full Width Span) -->
+            <button onclick="topUpDiamonds(1400, 799)" class="col-span-2 bg-[#1a1a24] border border-slate-800 hover:border-pink-500 p-4 rounded-2xl text-center transition-all flex items-center justify-between group">
+                <div class="flex items-center gap-3">
+                    <span class="text-2xl">💎</span>
+                    <div class="text-left">
+                        <h5 class="text-xs font-bold text-white group-hover:text-pink-400">1,400 Diamonds</h5>
+                        <p class="text-[10px] text-slate-400">Ultimate Creator Pack</p>
+                    </div>
+                </div>
+                <span class="bg-pink-500/10 text-pink-400 border border-pink-500/20 text-xs font-bold px-4 py-1.5 rounded-full">₹799</span>
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- Script to Handle Mock Top-ups -->
+    <script>
+        let currentBalance = 1240;
+
+        function topUpDiamonds(amountAdded, pricePaid) {
+            currentBalance += amountAdded;
+            document.getElementById('wallet-balance').innerText = currentBalance.toLocaleString() + " 💎";
+            
+            const toast = document.getElementById('wallet-toast');
+            toast.innerText = `🎉 Successfully purchased ${amountAdded} Diamonds for ₹${pricePaid}!`;
+            toast.style.opacity = '1';
+
+            setTimeout(() => {
+                toast.style.opacity = '0';
+            }, 3000);
+        }
+    </script>
+</body>
+</html>
