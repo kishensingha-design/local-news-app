@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Let's Live - Login & Signup</title>
-    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -20,15 +19,6 @@
             }
         };
     </script>
-    <!-- Hide Netlify Badge on Free Tier -->
-    <style>
-        iframe#netlify-badge, a[href*="netlify.com/support"], div:has(> a[href*="netlify.com"]) {
-            display: none !important;
-            visibility: hidden !important;
-            opacity: 0 !important;
-            pointer-events: none !important;
-        }
-    </style>
     <!-- EmailJS SDK -->
     <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script type="text/javascript">
@@ -38,26 +28,16 @@
     </script>
 </head>
 <body class="bg-[#0f0f13] min-h-screen flex items-center justify-center p-4 text-slate-100 font-sans">
-
-    <!-- Main Container Card -->
     <div class="w-full max-w-md bg-[#1a1a24] rounded-2xl shadow-2xl overflow-hidden border border-slate-800">
-        
-        <!-- Stylish Brand Banner -->
         <div class="bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] p-6 text-center">
             <h1 class="text-3xl tracking-wider uppercase text-white font-black">Let's Live</h1>
             <p class="text-pink-100 text-xs mt-1 font-medium tracking-wide">Stream. Connect. Earn.</p>
         </div>
-
-        <!-- Auth Tabs (Login / Signup) -->
         <div class="flex border-b border-slate-800 bg-[#14141c]">
             <button type="button" onclick="switchTab('login')" id="tab-login" class="flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm">Login</button>
             <button type="button" onclick="switchTab('signup')" id="tab-signup" class="flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm">Sign Up</button>
         </div>
-
-        <!-- Form Area -->
         <div class="p-6">
-            
-            <!-- Login Form -->
             <form id="form-login" onsubmit="handleLogin(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email or Phone Number</label>
@@ -67,23 +47,15 @@
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Password</label>
                     <input type="password" id="login-password" required placeholder="Enter password" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
-                <!-- Login Error Message Display -->
                 <p id="login-error" class="text-xs text-red-500 font-medium hidden"></p>
-
                 <button type="submit" class="w-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider">
                     Log In
                 </button>
             </form>
-
-            <!-- Signup Form (Hidden by default) -->
             <form id="form-signup" onsubmit="handleSignup(event)" class="space-y-4 hidden">
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Desired Username / Nickname</label>
-                    <div class="flex gap-2">
-                        <input type="text" id="signup-username" required placeholder="e.g. user_raj" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
-                        <button type="button" onclick="checkUsername()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-3 rounded-xl transition-all border border-slate-700">Check</button>
-                    </div>
-                    <p id="username-status" class="text-xs mt-1 font-medium"></p>
+                    <input type="text" id="signup-username" required placeholder="e.g. user_raj" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
                 <div>
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Email Address</label>
@@ -93,164 +65,21 @@
                     <label class="block text-xs font-semibold uppercase text-slate-400 mb-1">Create Password</label>
                     <input type="password" id="signup-password" required placeholder="Create a password" class="w-full px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
                 </div>
-                <div>
-                    <div class="flex gap-2">
-                        <input type="text" id="signup-otp-input" placeholder="Enter OTP" class="flex-1 px-4 py-3 bg-[#111117] border border-slate-700 rounded-xl focus:outline-none focus:ring-2 focus:ring-pink-500 text-sm text-white">
-                        <button type="button" onclick="sendOTP()" class="bg-slate-800 hover:bg-slate-700 text-pink-400 text-xs font-bold px-4 rounded-xl transition-all border border-slate-700">Send OTP</button>
-                    </div>
-                    <p id="otp-status" class="text-xs mt-1 font-medium"></p>
-                </div>
-                
-                <p id="signup-error" class="text-xs text-red-500 font-medium hidden"></p>
-
                 <button type="submit" class="w-full bg-gradient-to-r from-[#7928ca] to-[#ff2a5f] hover:opacity-90 text-white font-bold py-3 rounded-xl shadow-lg transition-all text-sm uppercase tracking-wider">
-                    Verify & Register
+                    Register & Continue
                 </button>
             </form>
-
         </div>
     </div>
-
-    <!-- Script to handle local authentication and EmailJS OTP -->
     <script>
-        let generatedOTP = "";
-
         function switchTab(tab) {
-            const loginForm = document.getElementById('form-login');
-            const signupForm = document.getElementById('form-signup');
-            const loginTab = document.getElementById('tab-login');
-            const signupTab = document.getElementById('tab-signup');
-
-            if (tab === 'login') {
-                loginForm.classList.remove('hidden');
-                signupForm.classList.add('hidden');
-                loginTab.className = "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm";
-                signupTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
-            } else {
-                signupForm.classList.remove('hidden');
-                loginForm.classList.add('hidden');
-                signupTab.className = "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 transition-all text-sm";
-                loginTab.className = "flex-1 py-3 text-center font-medium text-slate-400 hover:text-slate-200 transition-all text-sm";
-            }
+            document.getElementById('form-login').classList.toggle('hidden', tab !== 'login');
+            document.getElementById('form-signup').classList.toggle('hidden', tab !== 'signup');
+            document.getElementById('tab-login').className = tab === 'login' ? "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 text-sm" : "flex-1 py-3 text-center font-medium text-slate-400 text-sm";
+            document.getElementById('tab-signup').className = tab === 'signup' ? "flex-1 py-3 text-center font-semibold text-pink-500 border-b-2 border-pink-500 text-sm" : "flex-1 py-3 text-center font-medium text-slate-400 text-sm";
         }
-
-        function getUsers() {
-            let users = localStorage.getItem('lets_live_users');
-            return users ? JSON.parse(users) : [];
-        }
-
-        function checkUsername() {
-            const usernameInput = document.getElementById('signup-username').value.trim();
-            const statusP = document.getElementById('username-status');
-
-            if (!usernameInput) {
-                statusP.style.color = '#ff4d4d';
-                statusP.innerText = "Please enter a username first.";
-                return false;
-            }
-
-            const users = getUsers();
-            const exists = users.some(u => u.username.toLowerCase() === usernameInput.toLowerCase());
-
-            if (exists) {
-                let suggested = usernameInput + Math.floor(Math.random() * 900 + 100);
-                statusP.style.color = '#ff4d4d';
-                statusP.innerHTML = `Username taken! Try: <span class="underline cursor-pointer text-pink-400" onclick="document.getElementById('signup-username').value='${suggested}'; checkUsername();">${suggested}</span>`;
-                return false;
-            } else {
-                statusP.style.color = '#00ffcc';
-                statusP.innerText = "Username is available!";
-                return true;
-            }
-        }
-
-        function sendOTP() {
-            const contactInput = document.getElementById('signup-contact').value.trim();
-            const statusElement = document.getElementById('otp-status');
-            
-            if (!contactInput || !contactInput.includes('@')) {
-                statusElement.style.color = '#ff4d4d';
-                statusElement.innerText = "Please enter a valid email address first.";
-                return;
-            }
-
-            // Generate a random 6-digit OTP
-            generatedOTP = Math.floor(100000 + Math.random() * 900000).toString();
-
-            statusElement.style.color = '#cbd5e1';
-            statusElement.innerText = "Sending OTP to email...";
-
-            const templateParams = {
-                to_email: contactInput,
-                otp_code: generatedOTP
-            };
-
-            emailjs.send('service_e270avk', 'template_l9trfuf', templateParams)
-                .then(function(response) {
-                    statusElement.style.color = '#00ffcc';
-                    statusElement.innerText = "OTP sent successfully to your email!";
-                }, function(error) {
-                    // Fallback so you can still test smoothly if EmailJS blocks or fails
-                    statusElement.style.color = '#00ffcc';
-                    statusElement.innerText = `OTP Generated (Test Code: ${generatedOTP})`;
-                    console.warn('EmailJS fallback triggered due to error:', error);
-                });
-        }
-
-        function handleSignup(event) {
-            event.preventDefault();
-            const username = document.getElementById('signup-username').value.trim();
-            const contact = document.getElementById('signup-contact').value.trim();
-            const password = document.getElementById('signup-password').value.trim();
-            const enteredOTP = document.getElementById('signup-otp-input').value.trim();
-            const errorP = document.getElementById('signup-error');
-
-            if (enteredOTP !== generatedOTP) {
-                errorP.innerText = "Invalid OTP. Please check the code.";
-                errorP.classList.remove('hidden');
-                return;
-            }
-
-            let users = getUsers();
-
-            const usernameExists = users.some(u => u.username.toLowerCase() === username.toLowerCase());
-            if (usernameExists) {
-                errorP.innerText = "That username is already taken. Please choose another.";
-                errorP.classList.remove('hidden');
-                return;
-            }
-
-            const contactExists = users.some(u => u.contact === contact);
-            if (contactExists) {
-                errorP.innerText = "This email is already registered. Please log in.";
-                errorP.classList.remove('hidden');
-                return;
-            }
-
-            users.push({ username, contact, password });
-            localStorage.setItem('lets_live_users', JSON.stringify(users));
-            localStorage.setItem('lets_live_current_user', username);
-
-            window.location.href = 'home.html';
-        }
-
-        function handleLogin(event) {
-            event.preventDefault();
-            const contact = document.getElementById('login-contact').value.trim();
-            const password = document.getElementById('login-password').value.trim();
-            const errorP = document.getElementById('login-error');
-
-            let users = getUsers();
-            const validUser = users.find(u => u.contact === contact && u.password === password);
-
-            if (validUser) {
-                localStorage.setItem('lets_live_current_user', validUser.username);
-                window.location.href = 'home.html';
-            } else {
-                errorP.innerText = "Incorrect email or password. Please try again.";
-                errorP.classList.remove('hidden');
-            }
-        }
+        function handleLogin(e) { e.preventDefault(); window.location.href = 'home.html'; }
+        function handleSignup(e) { e.preventDefault(); window.location.href = 'home.html'; }
     </script>
 </body>
 </html>
